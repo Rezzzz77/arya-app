@@ -1,0 +1,23 @@
+{
+  "name": "arya-beauty-advisor",
+  "version": "0.1.0",
+  "private": true,
+  "description": "مشاور هوشمند پوست و مو و پیشنهاد محصولات آریا (PWA + Cloudflare Worker)",
+  "type": "module",
+  "scripts": {
+    "scrape": "node scripts/scrape-arya.js",
+    "build:data": "node scripts/build-knowledge.js",
+    "dev:worker": "wrangler dev --config worker/wrangler.toml",
+    "deploy:worker": "node scripts/deploy-worker.js",
+    "deploy:pages": "node scripts/deploy-pages.js",
+    "set:secret": "node scripts/set-secret.js",
+    "admin": "node scripts/admin.js"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0",
+    "he": "^1.2.0"
+  },
+  "devDependencies": {
+    "wrangler": "^4.131.2"
+  }
+}

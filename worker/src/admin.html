@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#5c2338">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🛠️%3C/text%3E%3C/svg%3E">
+<title>پنل مدیریت آریا</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--p:#8e3b5a;--pd:#5c2338;--pl:#b25b7a;--a:#c9a227;--bg:#f6f2f4;--c:#fff;--t:#241a1e;--tl:#6b5a60;--line:#eadfe4;--ok:#2d6a4f;--warn:#b26a00;--bad:#b4233a}
+body{font-family:system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;background:radial-gradient(900px 400px at 100% -10%,#f7e8ee,transparent 60%),var(--bg);color:var(--t);line-height:1.7;min-height:100vh}
+.hdr{background:linear-gradient(135deg,var(--pd),var(--p));color:#fff;padding:14px 22px;display:flex;align-items:center;gap:14px;justify-content:space-between;box-shadow:0 8px 30px rgba(92,35,56,.2)}
+.brand{display:flex;align-items:center;gap:11px}
+.logo{width:42px;height:42px;border-radius:13px;background:rgba(255,255,255,.15);display:grid;place-items:center;font-size:1.3rem;border:1px solid rgba(255,255,255,.2)}
+.hdr h1{font-size:1.05rem;font-weight:800}
+.hdr .sub{font-size:.66rem;opacity:.8}
+.hr{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+main{max-width:1100px;margin:0 auto;padding:18px 16px 50px}
+.card{background:var(--c);border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:14px;box-shadow:0 6px 22px rgba(92,35,56,.06)}
+.card h2{font-size:.95rem;color:var(--pd);margin-bottom:6px}
+.card p,.note{font-size:.76rem;color:var(--tl)}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.between{justify-content:space-between}
+.badge{display:inline-flex;align-items:center;gap:4px;border-radius:999px;padding:3px 9px;font-size:.64rem;font-weight:800;background:#f3e3e9;color:var(--pd);border:1px solid #ecd3dd}
+.badge.ok{background:#e9f6ee;color:#1d5c42;border-color:#cbe8d8}
+.badge.gold{background:#fbf1d6;color:#7a5a00;border-color:#f0dfa9}
+.badge.bad{background:#fde8ec;color:#8f1730;border-color:#f6c9d2}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:0;border-radius:11px;padding:9px 15px;font-size:.78rem;font-weight:800;cursor:pointer;background:linear-gradient(135deg,var(--p),var(--pd));color:#fff;box-shadow:0 5px 14px rgba(142,59,90,.18)}
+.btn:disabled{opacity:.55;cursor:not-allowed}
+.btn.small{padding:5px 10px;font-size:.68rem;border-radius:9px}
+.btn.ghost{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);color:#fff;box-shadow:none}
+.btn.danger{background:#fdeef1;color:#8f1730;border:1px solid #f4c9d2;box-shadow:none}
+.btn.gold{background:#fbf1d6;color:#7a5a00;border:1px solid #f0dfa9;box-shadow:none}
+.btn.ok{background:#eef8f2;color:#1d5c42;border:1px solid #cbe8d8;box-shadow:none}
+input,select{width:100%;padding:10px 11px;border:1.5px solid #e8d7dd;border-radius:11px;background:#fffdfc;font:inherit;font-size:.8rem;outline:none}
+input:focus,select:focus{border-color:var(--pl);box-shadow:0 0 0 4px rgba(178,91,122,.1)}
+.login{max-width:440px;margin:40px auto}
+.login h2{font-size:1.05rem}
+.login input{margin-top:8px}
+.login .btn{width:100%;margin-top:10px}
+.msg{font-size:.76rem;margin-top:8px;min-height:20px}
+.msg.bad{color:var(--bad)}.msg.ok{color:var(--ok)}
+.stats{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:10px}
+.stat{background:linear-gradient(180deg,#fff,#fdf6f8);border:1px solid var(--line);border-radius:12px;padding:10px;text-align:center}
+.stat b{display:block;font-size:1.05rem;color:var(--pd)}
+.stat span{font-size:.6rem;color:var(--tl)}
+.tabs{display:flex;gap:6px;background:#f1e5ea;border-radius:13px;padding:4px;margin:10px 0}
+.tab{flex:1;border:0;background:transparent;padding:8px;border-radius:10px;font:inherit;font-size:.75rem;font-weight:800;color:#7a5b66;cursor:pointer}
+.tab.active{background:#fff;color:var(--pd);box-shadow:0 2px 8px rgba(92,35,56,.08)}
+.pane{display:none}.pane.active{display:block}
+.item{border:1px solid var(--line);border-radius:13px;padding:10px 11px;margin-bottom:8px;background:#fff}
+.item .top{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
+.item .top b{font-size:.76rem;color:var(--pd);line-height:1.6;overflow-wrap:anywhere}
+.item .meta{font-size:.65rem;color:var(--tl);margin-top:3px}
+.item .prev{font-size:.68rem;color:#5b4650;margin-top:5px;line-height:1.7;max-height:3.6em;overflow:hidden}
+.actions{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px}
+.actions button{border:1px solid #e8d3dc;background:#fff;color:var(--pd);border-radius:8px;padding:4px 8px;font:inherit;font-size:.64rem;font-weight:700;cursor:pointer}
+.actions button.ok{background:#eef8f2;border-color:#cbe8d8;color:#1d5c42}
+.actions button.gold{background:#fbf1d6;border-color:#f0dfa9;color:#7a5a00}
+.actions button.danger{background:#fdeef1;border-color:#f4c9d2;color:#8f1730}
+.rating{color:var(--a);letter-spacing:1px;font-weight:900}
+.tbl-wrap{overflow:auto;margin-top:8px}
+.tbl{width:100%;border-collapse:collapse;font-size:.7rem}
+.tbl th,.tbl td{border-bottom:1px solid var(--line);padding:6px 5px;text-align:right;vertical-align:top}
+.tbl th{color:var(--pd);font-size:.64rem;background:#faf3f6}
+.modal-o{display:none;position:fixed;inset:0;background:rgba(36,20,27,.55);z-index:100;align-items:center;justify-content:center;padding:16px}
+.modal-o.show{display:flex}
+.modal{background:#fff;border-radius:16px;width:100%;max-width:760px;max-height:88vh;overflow:auto;padding:18px;position:relative}
+.modal .x{float:left;border:0;background:#f7eaf0;color:var(--pd);width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:1rem}
+.md{font-size:.8rem;line-height:2;color:#332228}
+.md h2,.md h3,.md h4{color:var(--pd);margin:12px 0 4px}
+.md h2{font-size:.95rem;border-bottom:2px solid #f3e3e9;padding-bottom:3px}
+.md h3{font-size:.86rem}.md h4{font-size:.8rem}
+.md p{margin:4px 0}.md ul,.md ol{padding-right:18px;margin:4px 0}.md li{margin:2px 0}
+.md blockquote{margin:6px 0;padding:6px 9px;border-right:3px solid var(--a);background:#fdf8ea;border-radius:7px;font-size:.75rem}
+.md table{border-collapse:collapse;width:100%;font-size:.72rem;margin:6px 0}
+.md th,.md td{border:1px solid var(--line);padding:4px 6px;text-align:right}
+.md th{background:#f9edf1;color:var(--pd)}
+.md strong{color:var(--pd)}
+.toast-wrap{position:fixed;top:10px;left:50%;transform:translateX(-50%);z-index:200;display:flex;flex-direction:column;gap:6px;width:min(92vw,430px)}
+.toast{background:#2b1a21;color:#fff;border-radius:10px;padding:8px 12px;font-size:.74rem;box-shadow:0 10px 30px rgba(0,0,0,.2)}
+.toast.ok{background:#1d5c42}.toast.bad{background:#8f1730}
+.empty{text-align:center;color:var(--tl);font-size:.78rem;padding:16px}
+@media(max-width:760px){.stats{grid-template-columns:repeat(3,1fr)}.hdr{align-items:flex-start}.hdr .sub{display:none}}
+@media(max-width:460px){.stats{grid-template-columns:1fr 1fr}.tabs{overflow-x:auto}.tab{white-space:nowrap}}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <div class="brand">
+    <div class="logo">🛠️</div>
+    <div><h1>پنل مدیریت آریا</h1><div class="sub">Arya Beauty Advisor · Admin</div></div>
+  </div>
+  <div class="hr">
+    <span id="aiBadge" class="badge">در حال اتصال...</span>
+    <a class="btn small ghost" href="https://arya-app.pages.dev" target="_blank" rel="noopener">اپ اصلی</a>
+    <button id="logoutBtn" class="btn small danger" hidden>خروج</button>
+  </div>
+</header>
+<main>
+  <section id="loginCard" class="card login">
+    <h2>🔐 ورود مدیر</h2>
+    <p>فقط حساب‌های با نقش «مدیر» می‌توانند وارد شوند.</p>
+    <input id="email" type="email" placeholder="ایمیل مدیر" autocomplete="username" style="direction:ltr">
+    <input id="pass" type="password" placeholder="رمز عبور" autocomplete="current-password" style="direction:ltr">
+    <button id="loginBtn" class="btn">ورود</button>
+    <div id="loginMsg" class="msg"></div>
+    <p class="note" style="margin-top:10px">اولین ثبت‌نام در اپ اصلی به‌صورت خودکار مدیر می‌شود.</p>
+  </section>
+
+  <section id="dash" hidden>
+    <div class="card">
+      <div class="row between"><h2>📊 آمار کلی</h2><span id="version" class="badge"></span></div>
+      <div class="stats" id="stats"></div>
+      <div class="row" id="service" style="margin-top:9px"></div>
+    </div>
+
+    <div class="tabs" id="tabs">
+      <button class="tab active" data-tab="users">کاربران</button>
+      <button class="tab" data-tab="jobs">تحلیل‌ها</button>
+      <button class="tab" data-tab="feedback">بازخورد</button>
+      <button class="tab" data-tab="settings">تنظیمات</button>
+    </div>
+
+    <section id="pane-users" class="pane active">
+      <div class="card">
+        <div class="row">
+          <input id="userSearch" type="search" placeholder="جستجوی ایمیل..." style="flex:1;min-width:160px">
+          <select id="userStatus" style="max-width:190px">
+            <option value="">همه وضعیت‌ها</option>
+            <option value="pending">در انتظار تأیید</option>
+            <option value="approved">تأییدشده</option>
+            <option value="blocked">مسدود</option>
+          </select>
+        </div>
+      </div>
+      <div id="userList"></div>
+    </section>
+
+    <section id="pane-jobs" class="pane">
+      <div class="card">
+        <div class="row">
+          <select id="jobType" style="max-width:150px">
+            <option value="">همه انواع</option>
+            <option value="skin">پوست</option>
+            <option value="iris">عنبیه</option>
+            <option value="hair">مو</option>
+            <option value="survey">پرسش‌نامه</option>
+          </select>
+          <select id="jobStatus" style="max-width:160px">
+            <option value="">همه وضعیت‌ها</option>
+            <option value="pending">در صف</option>
+            <option value="processing">در حال پردازش</option>
+            <option value="completed">تکمیل</option>
+            <option value="failed">ناموفق</option>
+          </select>
+          <input id="jobSearch" type="search" placeholder="جستجوی ایمیل..." style="flex:1;min-width:160px">
+        </div>
+      </div>
+      <div id="jobList"></div>
+    </section>
+
+    <section id="pane-feedback" class="pane">
+      <div id="feedbackList"></div>
+    </section>
+
+    <section id="pane-settings" class="pane">
+      <div class="card">
+        <h2>⚙️ تنظیمات سرویس</h2>
+        <p class="note">سهمیهٔ روزانهٔ پیش‌فرض برای همهٔ کاربران (کاربران می‌توانند سهمیهٔ اختصاصی داشته باشند).</p>
+        <div class="row" style="margin-top:8px">
+          <input id="dailyLimit" type="number" min="1" max="100" style="max-width:130px">
+          <button id="saveSettingsBtn" class="btn gold small">ذخیره</button>
+        </div>
+        <p id="settingsMsg" class="note" style="margin-top:7px"></p>
+        <h3 style="margin-top:14px;font-size:.85rem;color:var(--pd)">وضعیت سرویس</h3>
+        <p id="serviceInfo" class="note" style="margin-top:4px"></p>
+      </div>
+    </section>
+  </section>
+</main>
+
+<div class="modal-o" id="modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal" id="modalBody"></div>
+</div>
+<div class="toast-wrap" id="toastWrap"></div>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+const escA = (s) => esc(s).replace(/'/g, '&#39;');
+const fmt = (n) => { try { return Number(n).toLocaleString('fa-IR'); } catch (e) { return String(n); } };
+const dateF = (s) => { try { return new Date(s).toLocaleString('fa-IR'); } catch (e) { return s || ''; } };
+const TYPE = { skin: 'پوست', iris: 'عنبیه', hair: 'مو', survey: 'پرسش‌نامه' };
+const ST = { pending: 'در انتظار', approved: 'تأییدشده', blocked: 'مسدود' };
+const STC = { pending: 'gold', approved: 'ok', blocked: 'bad' };
+const JST = { pending: 'در صف', processing: 'در حال پردازش', completed: 'تکمیل', failed: 'ناموفق' };
+const JSTC = { pending: 'gold', processing: 'gold', completed: 'ok', failed: 'bad' };
+
+const state = {
+  token: localStorage.getItem('arya_admin_token') || '',
+  user: null,
+  users: [], jobs: [], feedback: [], overview: null, settings: null, tab: 'users'
+};
+
+function toast(msg, type) {
+  const el = document.createElement('div');
+  el.className = 'toast ' + (type || '');
+  el.textContent = msg;
+  $('toastWrap').appendChild(el);
+  setTimeout(() => el.remove(), 3800);
+}
+
+async function api(path, body) {
+  const headers = { 'Content-Type': 'application/json', Accept: 'application/json' };
+  if (state.token) headers.Authorization = 'Bearer ' + state.token;
+  const res = await fetch(path, { method: body ? 'POST' : 'GET', headers, body: body ? JSON.stringify(body) : undefined });
+  let data = null;
+  try { data = await res.json(); } catch (e) { data = { ok: false, error: 'پاسخ نامعتبر سرور' }; }
+  return data;
+}
+
+function showLogin() {
+  $('loginCard').hidden = false;
+  $('dash').hidden = true;
+  $('logoutBtn').hidden = true;
+}
+function showDash() {
+  $('loginCard').hidden = true;
+  $('dash').hidden = false;
+  $('logoutBtn').hidden = false;
+}
+
+async function boot() {
+  if (!state.token) { showLogin(); return; }
+  try {
+    const me = await api('/api/me', { token: state.token });
+    if (!me || !me.ok || !me.user || me.user.role !== 'admin') {
+      state.token = '';
+      localStorage.removeItem('arya_admin_token');
+      showLogin();
+      return;
+    }
+    state.user = me.user;
+    showDash();
+    await loadAll();
+  } catch (e) {
+    showLogin();
+  }
+}
+
+async function login() {
+  const email = $('email').value.trim().toLowerCase();
+  const password = $('pass').value;
+  const msg = $('loginMsg');
+  if (!email || !password) { msg.className = 'msg bad'; msg.textContent = 'ایمیل و رمز را وارد کنید.'; return; }
+  msg.className = 'msg'; msg.textContent = 'در حال ورود...';
+  try {
+    const r = await api('/api/login', { email, password });
+    if (!r || !r.ok) { msg.className = 'msg bad'; msg.textContent = (r && r.error) || 'خطا'; return; }
+    if (!r.user || r.user.role !== 'admin') { msg.className = 'msg bad'; msg.textContent = 'این حساب نقش مدیر ندارد.'; return; }
+    state.token = r.token;
+    state.user = r.user;
+    localStorage.setItem('arya_admin_token', r.token);
+    $('pass').value = '';
+    msg.textContent = '';
+    showDash();
+    await loadAll();
+    toast('خوش آمدید ' + r.user.email, 'ok');
+  } catch (e) {
+    msg.className = 'msg bad'; msg.textContent = 'خطا در ارتباط با سرور.';
+  }
+}
+
+async function logout() {
+  try { await api('/api/logout', { token: state.token }); } catch (e) {}
+  state.token = '';
+  state.user = null;
+  localStorage.removeItem('arya_admin_token');
+  showLogin();
+  toast('خارج شدید.');
+}
+
+async function loadAll() {
+  try {
+    const [o, u, j, f, s] = await Promise.all([
+      api('/api/admin/overview'), api('/api/admin/users'), api('/api/admin/jobs?limit=200'),
+      api('/api/admin/feedback'), api('/api/admin/settings')
+    ]);
+    if (o && o.ok) state.overview = o;
+    if (u && u.ok) state.users = u.users || [];
+    if (j && j.ok) state.jobs = j.jobs || [];
+    if (f && f.ok) state.feedback = f.feedback || [];
+    if (s && s.ok) state.settings = s;
+    renderAll();
+  } catch (e) {
+    toast('خطا در بارگذاری داده‌ها.', 'bad');
+  }
+}
+
+function renderAll() {
+  renderStats();
+  renderUsers();
+  renderJobs();
+  renderFeedback();
+  renderSettings();
+}
+
+function renderStats() {
+  const o = state.overview;
+  if (!o) return;
+  const s = o.stats || {};
+  $('aiBadge').className = 'badge ' + (o.ai && o.ai.configured ? 'ok' : 'gold');
+  $('aiBadge').textContent = o.ai && o.ai.configured ? 'AI: ' + o.ai.model : 'AI غیرفعال';
+  $('version').textContent = 'v ' + (o.version || '—');
+  $('stats').innerHTML =
+    '<div class="stat"><b>' + fmt(s.users || 0) + '</b><span>کاربر</span></div>' +
+    '<div class="stat"><b>' + fmt(s.pending || 0) + '</b><span>در انتظار</span></div>' +
+    '<div class="stat"><b>' + fmt(s.today || 0) + '</b><span>امروز</span></div>' +
+    '<div class="stat"><b>' + fmt(s.completed || 0) + '</b><span>تحلیل کامل</span></div>' +
+    '<div class="stat"><b>' + fmt(s.failed || 0) + '</b><span>ناموفق</span></div>' +
+    '<div class="stat"><b>' + fmt(s.feedback || 0) + '</b><span>بازخورد</span></div>';
+  $('service').innerHTML =
+    '<span class="badge">سهمیه پیش‌فرض: ' + fmt(o.daily_limit || 10) + '</span>' +
+    '<span class="badge">کاتالوگ: ' + fmt((o.catalog && o.catalog.count) || 0) + ' محصول</span>' +
+    '<span class="badge ' + (o.queue ? 'ok' : 'bad') + '">صف: ' + (o.queue ? 'فعال' : 'غیرفعال') + '</span>' +
+    '<span class="badge">' + esc((o.ai && o.ai.provider) || '—') + '</span>';
+}
+
+function renderUsers() {
+  const el = $('userList');
+  if (!el) return;
+  const q = ($('userSearch').value || '').trim().toLowerCase();
+  const st = $('userStatus').value || '';
+  let list = state.users.slice();
+  if (q) list = list.filter((u) => String(u.email || '').toLowerCase().includes(q));
+  if (st) list = list.filter((u) => u.status === st);
+  if (!list.length) { el.innerHTML = '<div class="card empty">کاربری با این فیلتر پیدا نشد.</div>'; return; }
+  el.innerHTML = list.map((u) => {
+    const cls = STC[u.status] || '';
+    const act = u.status === 'approved'
+      ? '<button class="danger" onclick="approveUser(\'' + escA(u.email) + '\',\'blocked\')">مسدود</button>'
+      : '<button class="ok" onclick="approveUser(\'' + escA(u.email) + '\',\'approved\')">تأیید</button>';
+    return '<div class="item"><div class="top"><b>' + esc(u.email) + '</b><span class="badge ' + cls + '">' + esc(ST[u.status] || u.status) + '</span></div>' +
+      '<div class="meta">' + esc(u.role === 'admin' ? 'مدیر' : 'کاربر') + ' · سهمیه: ' + esc(u.daily_limit || 'پیش‌فرض') + ' · عضویت: ' + esc(dateF(u.created_at)) + '</div>' +
+      '<div class="actions">' + act +
+      '<button class="gold" onclick="limitUser(\'' + escA(u.email) + '\')">سهمیه</button>' +
+      '<button onclick="copyEmail(\'' + escA(u.email) + '\')">کپی ایمیل</button></div></div>';
+  }).join('');
+}
+
+function renderJobs() {
+  const el = $('jobList');
+  if (!el) return;
+  const type = $('jobType').value || '';
+  const status = $('jobStatus').value || '';
+  const q = ($('jobSearch').value || '').trim().toLowerCase();
+  let list = state.jobs.slice();
+  if (type) list = list.filter((x) => x.type === type);
+  if (status) list = list.filter((x) => x.status === status);
+  if (q) list = list.filter((x) => String(x.email || '').toLowerCase().includes(q));
+  if (!list.length) { el.innerHTML = '<div class="card empty">تحلیلی با این فیلتر پیدا نشد.</div>'; return; }
+  el.innerHTML = list.map((x) => {
+    const cls = JSTC[x.status] || '';
+    return '<div class="item"><div class="top"><b>' + esc(TYPE[x.type] || x.type) + ' — ' + esc(x.email || '—') + '</b><span class="badge ' + cls + '">' + esc(JST[x.status] || x.status) + '</span></div>' +
+      '<div class="meta">' + esc(dateF(x.created_at)) + ' · ' + esc(x.engine || '—') + (x.has_image ? ' · 👁️ ویژن' : ' · بدون تصویر') + '</div>' +
+      '<div class="prev">' + esc(String(x.preview || '').replace(/\n/g, ' ')) + '</div>' +
+      '<div class="actions"><button onclick="viewJob(\'' + escA(x.id) + '\')">مشاهده</button>' +
+      '<button class="gold" onclick="retryJob(\'' + escA(x.id) + '\')">تلاش دوباره</button>' +
+      '<button class="danger" onclick="deleteJob(\'' + escA(x.id) + '\')">حذف</button></div></div>';
+  }).join('');
+}
+
+function renderFeedback() {
+  const el = $('feedbackList');
+  if (!el) return;
+  if (!state.feedback.length) { el.innerHTML = '<div class="card empty">هنوز بازخوردی ثبت نشده است.</div>'; return; }
+  el.innerHTML = state.feedback.map((f) => {
+    const r = Math.max(1, Math.min(5, Number(f.rating) || 0));
+    return '<div class="item"><div class="top"><b>' + esc(f.email || '—') + '</b><span class="rating">' + '★'.repeat(r) + '☆'.repeat(5 - r) + '</span></div>' +
+      '<div class="meta">' + esc(dateF(f.created_at)) + ' · تحلیل: ' + esc(f.job_id || '—') + '</div>' +
+      (f.note ? '<div class="prev">' + esc(f.note) + '</div>' : '') + '</div>';
+  }).join('');
+}
+
+function renderSettings() {
+  const s = state.settings;
+  if (!s) return;
+  $('dailyLimit').value = String(s.daily_limit || 10);
+  $('serviceInfo').textContent =
+    'AI: ' + (s.ai && s.ai.configured ? s.ai.provider + ' / ' + s.ai.model : 'غیرفعال') +
+    ' · صف: ' + (s.queue ? 'فعال' : 'غیرفعال') +
+    ' · کاتالوگ: ' + fmt(s.catalog_count || 0) + ' محصول' +
+    ' · نسخه: ' + (s.version || '—');
+}
+
+async function approveUser(email, status) {
+  const r = await api('/api/admin/approve', { email, status });
+  if (r && r.ok) { toast('وضعیت کاربر به‌روز شد.', 'ok'); await loadAll(); }
+  else toast((r && r.error) || 'خطا', 'bad');
+}
+async function limitUser(email) {
+  const v = prompt('سهمیه روزانه جدید برای ' + email + ' (۱ تا ۱۰۰):', '10');
+  if (v == null) return;
+  const n = Number(v);
+  if (!Number.isFinite(n) || n < 1 || n > 100) { toast('عدد معتبر وارد کنید.', 'bad'); return; }
+  const r = await api('/api/admin/limit', { email, limit: n });
+  if (r && r.ok) { toast('سهمیه ذخیره شد.', 'ok'); await loadAll(); }
+  else toast((r && r.error) || 'خطا', 'bad');
+}
+async function retryJob(id) {
+  const r = await api('/api/admin/job', { id, action: 'retry' });
+  if (r && r.ok) { toast('تحلیل دوباره در صف قرار گرفت.', 'ok'); setTimeout(loadAll, 1500); }
+  else toast((r && r.error) || 'خطا', 'bad');
+}
+async function deleteJob(id) {
+  if (!confirm('این تحلیل حذف شود؟')) return;
+  const r = await api('/api/admin/job', { id, action: 'delete' });
+  if (r && r.ok) { toast('تحلیل حذف شد.', 'ok'); await loadAll(); }
+  else toast((r && r.error) || 'خطا', 'bad');
+}
+async function saveSettings() {
+  const n = Number($('dailyLimit').value);
+  if (!Number.isFinite(n) || n < 1 || n > 100) { toast('عدد بین ۱ تا ۱۰۰ وارد کنید.', 'bad'); return; }
+  const r = await api('/api/admin/settings', { daily_limit: n });
+  if (r && r.ok) { toast('تنظیمات ذخیره شد.', 'ok'); $('settingsMsg').textContent = 'سهمیه پیش‌فرض: ' + n; await loadAll(); }
+  else toast((r && r.error) || 'خطا', 'bad');
+}
+async function copyEmail(email) {
+  try { await navigator.clipboard.writeText(email); toast('ایمیل کپی شد.', 'ok'); }
+  catch (e) { toast('کپی نشد.', 'bad'); }
+}
+
+async function viewJob(id) {
+  const r = await api('/status/' + encodeURIComponent(id));
+  if (!r || !r.ok) { toast('تحلیل پیدا نشد.', 'bad'); return; }
+  if (r.status !== 'completed') { toast('این تحلیل کامل نشده است.', 'bad'); return; }
+  $('modalBody').innerHTML = '<button class="x" onclick="closeModal()">×</button>' +
+    '<h2 style="color:var(--pd);font-size:.9rem">' + esc(TYPE[r.type] || r.type) + '</h2>' +
+    '<div class="md">' + renderMarkdown(r.result || '') + '</div>';
+  $('modal').classList.add('show');
+}
+function closeModal() { $('modal').classList.remove('show'); }
+
+function renderMarkdown(md) {
+  const inline = (s) => esc(s).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+  const lines = String(md || '').replace(/\r/g, '').split('\n');
+  const out = [];
+  let table = [], list = null;
+  const flushTable = () => {
+    if (!table.length) return;
+    const body = table.filter((r) => !r.every((c) => /^:?-{2,}:?$/.test(c)));
+    if (body.length) {
+      const head = body[0], rest = body.slice(1);
+      out.push('<div class="tbl-wrap"><table class="tbl"><thead><tr>' + head.map((c) => '<th>' + inline(c) + '</th>').join('') + '</tr></thead><tbody>' +
+        rest.map((r) => '<tr>' + r.map((c) => '<td>' + inline(c) + '</td>').join('') + '</tr>').join('') + '</tbody></table></div>');
+    }
+    table = [];
+  };
+  const flushList = () => { if (list) { out.push('</' + list + '>'); list = null; } };
+  for (const raw of lines) {
+    const line = raw.trim();
+    if (!line) { flushTable(); flushList(); continue; }
+    if (/^\|.*\|$/.test(line)) { flushList(); table.push(line.replace(/^\||\|$/g, '').split('|').map((c) => c.trim())); continue; }
+    flushTable();
+    const hm = /^(#{1,4})\s+(.+)$/.exec(line);
+    if (hm) { flushList(); const lvl = Math.min(4, hm[1].length); out.push('<h' + lvl + '>' + inline(hm[2]) + '</h' + lvl + '>'); continue; }
+    if (/^>\s?/.test(line)) { flushList(); out.push('<blockquote>' + inline(line.replace(/^>\s?/, '')) + '</blockquote>'); continue; }
+    if (/^[-*]\s+/.test(line)) { if (list !== 'ul') { flushList(); out.push('<ul>'); list = 'ul'; } out.push('<li>' + inline(line.replace(/^[-*]\s+/, '')) + '</li>'); continue; }
+    if (/^[۰-۹0-9]+[.)]\s+/.test(line)) { if (list !== 'ol') { flushList(); out.push('<ol>'); list = 'ol'; } out.push('<li>' + inline(line.replace(/^[۰-۹0-9]+[.)]\s+/, '')) + '</li>'); continue; }
+    flushList(); out.push('<p>' + inline(line) + '</p>');
+  }
+  flushTable(); flushList();
+  return out.join('\n');
+}
+
+function switchTab(tab) {
+  state.tab = tab;
+  document.querySelectorAll('.tab').forEach((t) => t.classList.toggle('active', t.dataset.tab === tab));
+  document.querySelectorAll('.pane').forEach((p) => p.classList.remove('active'));
+  const pane = $('pane-' + tab);
+  if (pane) pane.classList.add('active');
+}
+
+document.getElementById('tabs').addEventListener('click', (e) => {
+  const b = e.target.closest('.tab');
+  if (b) switchTab(b.dataset.tab);
+});
+$('loginBtn').addEventListener('click', login);
+$('pass').addEventListener('keydown', (e) => { if (e.key === 'Enter') login(); });
+$('logoutBtn').addEventListener('click', logout);
+$('userSearch').addEventListener('input', renderUsers);
+$('userStatus').addEventListener('change', renderUsers);
+$('jobType').addEventListener('change', renderJobs);
+$('jobStatus').addEventListener('change', renderJobs);
+$('jobSearch').addEventListener('input', renderJobs);
+$('saveSettingsBtn').addEventListener('click', saveSettings);
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
+window.approveUser = approveUser;
+window.limitUser = limitUser;
+window.retryJob = retryJob;
+window.deleteJob = deleteJob;
+window.copyEmail = copyEmail;
+window.viewJob = viewJob;
+window.closeModal = closeModal;
+
+boot();
+</script>
+</body>
+</html>

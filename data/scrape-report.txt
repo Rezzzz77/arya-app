@@ -1,0 +1,16 @@
+89 | پاک کننده و لایه بردار | 1859000 T | cleanser,exfoliant,brightening,oil-control | all,oily,combination | 5 highlights
+266 | پاک کننده و لایه بردار | 1494900 T | cleanser,hydration,soothing | all | 3 highlights
+9 | پاک کننده و لایه بردار | 1199000 T | cleanser,makeup-remover,oil-control | all,oily,combination | 4 highlights
+51 | پاک کننده و لایه بردار | 1991000 T | cleanser,makeup-remover,soothing | all | 6 highlights
+1 | آبرسان و مرطوب کننده | 1375000 T | hydration,toner,soothing | normal,dry,sensitive | 3 highlights
+88 | آبرسان و مرطوب کننده | 1996500 T | hydration,anti-aging,soothing | all,sensitive,dry | 6 highlights
+10 | سرم های تخصصی | 2860000 T | anti-aging,brightening,hydration,soothing | all | 8 highlights
+13 | سرم های تخصصی | 1925000 T | brightening,anti-aging,vitamin-c,antioxidant | all,sensitive | 3 highlights
+11 | سرم های تخصصی | 2596000 T | brightening,anti-pigmentation,soothing | all,sensitive | 4 highlights
+8 | سرم های تخصصی | 1584000 T | acne,oil-control,soothing | all,oily,sensitive | 6 highlights
+49 | سرم های تخصصی | 2365000 T | brightening,acne,oil-control,anti-pigmentation | all,oily,sensitive | 5 highlights
+30 | مو، مژه و ابرو | 1991000 T | hair,eyelash,eyebrow,growth | hair | 7 highlights
+7 | مو، مژه و ابرو | 2794000 T | hair,hair-growth,strengthening | hair | 6 highlights
+87 | مو، مژه و ابرو | 1969000 T | hair,hydration,argan,nails | all,dry | 4 highlights
+31 | مو، مژه و ابرو | 1683000 T | hair,conditioner,smoothing | hair | 6 highlights
+12 | نانو وگان | 792000 T | vegan,nano,hydration,brightening | all | 6 highlights

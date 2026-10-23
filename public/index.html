@@ -1,0 +1,1861 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#8e3b5a">
+<meta name="description" content="مشاور هوشمند پوست و مو و پیشنهاد محصولات آریا">
+<title>مشاور زیبایی آریا</title>
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" href="./icon-192.svg" type="image/svg+xml">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --p:#8e3b5a;--pl:#b25b7a;--pd:#5c2338;--a:#c9a227;--a2:#e4c76a;
+  --bg:#fbf7f5;--c:#fff;--t:#241a1e;--tl:#6b5a60;--line:#efe2e6;
+  --ok:#2d6a4f;--warn:#b26a00;--bad:#b4233a;--shadow:0 8px 28px rgba(92,35,56,.08);
+}
+html,body{min-height:100%}
+body{
+  font-family:system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;
+  background:
+    radial-gradient(1100px 500px at 100% -10%, #f7e8ee 0%, transparent 60%),
+    radial-gradient(900px 500px at -20% 5%, #fbf1dc 0%, transparent 55%),
+    var(--bg);
+  color:var(--t);line-height:1.75;
+}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+.app{max-width:560px;margin:0 auto;padding:0 0 96px;min-height:100dvh}
+.hdr{
+  position:sticky;top:0;z-index:50;color:#fff;
+  background:linear-gradient(135deg,var(--pd),var(--p) 55%,#a8466b);
+  padding:14px 18px 12px;border-radius:0 0 24px 24px;
+  box-shadow:0 8px 30px rgba(92,35,56,.22);
+  display:flex;align-items:center;gap:12px;
+}
+.logo{width:42px;height:42px;flex:0 0 42px;border-radius:14px;background:rgba(255,255,255,.14);display:grid;place-items:center;border:1px solid rgba(255,255,255,.25)}
+.logo svg{width:28px;height:28px}
+.hdr h1{font-size:1.02rem;font-weight:800;letter-spacing:.2px}
+.hdr .sub{font-size:.68rem;opacity:.85;margin-top:1px}
+.hdr .grow{flex:1}
+.ai-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,.16);padding:4px 9px;border-radius:999px;font-size:.62rem;white-space:nowrap;border:1px solid rgba(255,255,255,.18)}
+.ai-dot{width:7px;height:7px;border-radius:50%;background:#7bd88f;box-shadow:0 0 0 3px rgba(123,216,143,.18)}
+.ai-dot.local{background:#ffc857;box-shadow:0 0 0 3px rgba(255,200,87,.18)}
+.ai-dot.off{background:#ff7b8a;box-shadow:0 0 0 3px rgba(255,123,138,.18)}
+.user-chip{display:none;align-items:center;gap:6px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.22);color:#fff;padding:4px 9px;border-radius:999px;font-size:.62rem;max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.user-chip.on{display:inline-flex}
+main{padding:16px}
+.scr{display:none;animation:fade .25s ease}
+.scr.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.card{background:var(--c);border:1px solid var(--line);border-radius:20px;padding:16px;margin-bottom:14px;box-shadow:var(--shadow)}
+.card.soft{background:linear-gradient(180deg,#fff,#fff9f7)}
+.card h2{font-size:.98rem;color:var(--pd);margin-bottom:6px;display:flex;align-items:center;gap:7px}
+.card h3{font-size:.86rem;color:var(--pd);margin:12px 0 6px}
+.card p{font-size:.8rem;color:var(--tl)}
+.hero{position:relative;overflow:hidden;background:linear-gradient(135deg,#fff8f4,#fdeef3 55%,#fbf1dc);border:1px solid #f4dfe6}
+.hero:after{content:"";position:absolute;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,#f3c7d8,transparent 70%);left:-60px;top:-60px;opacity:.6}
+.hero h2{font-size:1.08rem;color:var(--pd)}
+.hero .lead{font-size:.82rem;color:#5f4650;line-height:1.9;margin-top:4px}
+.pill{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:999px;font-size:.62rem;font-weight:700;background:#f3e3e9;color:var(--pd);border:1px solid #eed3dd}
+.pill.gold{background:#fbf1d6;color:#7a5a00;border-color:#f0dfa9}
+.pill.ok{background:#e6f4ec;color:#1d5c42;border-color:#cbe8d8}
+.pill.bad{background:#fde8ec;color:#8f1730;border-color:#f6c9d2}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:12px 18px;border-radius:14px;border:0;background:linear-gradient(135deg,var(--p),var(--pd));color:#fff;font-weight:800;font-size:.88rem;box-shadow:0 8px 18px rgba(142,59,90,.22);transition:.18s}
+.btn:hover{filter:brightness(1.05);transform:translateY(-1px)}
+.btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.btn.gold{background:linear-gradient(135deg,var(--a),#a88412);color:#2b2100;box-shadow:0 8px 18px rgba(201,162,39,.24)}
+.btn.ghost{background:#fff;color:var(--pd);border:1.5px solid #e9d3dc;box-shadow:none}
+.btn.small{padding:8px 12px;font-size:.76rem;width:auto;border-radius:11px}
+.btn.danger{background:linear-gradient(135deg,#b4233a,#82152a)}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.row.end{justify-content:flex-end}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.tabs{display:flex;gap:6px;background:#f6eaee;border-radius:14px;padding:4px;margin:8px 0}
+.tab{flex:1;border:0;background:transparent;padding:8px;border-radius:11px;font-size:.78rem;font-weight:700;color:#7a5b66}
+.tab.active{background:#fff;color:var(--pd);box-shadow:0 2px 8px rgba(92,35,56,.08)}
+input,select,textarea{width:100%;padding:11px 12px;border:1.5px solid #e8d7dd;border-radius:13px;background:#fffdfc;font-size:.82rem;outline:none;transition:.15s}
+input:focus,select:focus,textarea:focus{border-color:var(--pl);box-shadow:0 0 0 4px rgba(178,91,122,.1)}
+label{display:block;font-size:.72rem;color:var(--tl);margin:8px 0 4px;font-weight:700}
+.field{margin-bottom:4px}
+.auth-msg{font-size:.76rem;margin-top:8px;min-height:18px}
+.msg-ok{color:var(--ok)}.msg-bad{color:var(--bad)}
+.feature{display:flex;align-items:center;gap:12px;padding:13px;border-radius:18px;border:1px solid var(--line);background:#fff;margin-bottom:10px;box-shadow:0 6px 18px rgba(92,35,56,.05);text-align:right;width:100%}
+.feature:hover{border-color:#e7c7d3;transform:translateY(-1px)}
+.feature .fi{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;font-size:1.25rem;background:linear-gradient(135deg,#fbe8ef,#f8efdc);flex:0 0 46px}
+.feature h3{font-size:.86rem;color:var(--pd);margin:0 0 2px}
+.feature p{font-size:.7rem;color:var(--tl);line-height:1.6}
+.upload{border:2px dashed #e3bccb;border-radius:18px;padding:26px 16px;text-align:center;background:linear-gradient(180deg,#fffafc,#fdf6f8);cursor:pointer;transition:.2s}
+.upload:hover{border-color:var(--pl);background:#fff}
+.upload svg{width:38px;height:38px;color:var(--pl);margin-bottom:6px}
+.upload .hint{font-size:.78rem;color:var(--tl)}
+.upload .subhint{font-size:.68rem;color:#a58c95;margin-top:3px}
+.preview{display:none;text-align:center;margin:8px 0}
+.preview.on{display:block}
+.preview img{max-width:100%;max-height:300px;border-radius:16px;border:1px solid var(--line);object-fit:contain;background:#fff}
+.hidden{display:none!important}
+.quality{font-size:.74rem;line-height:1.8;border-radius:12px;padding:9px 11px;margin:8px 0}
+.quality.ok{background:#eef8f2;border:1px solid #cfe9da;color:#1d5c42}
+.quality.warn{background:#fff8e6;border:1px solid #f2dfa8;color:#7a5a00}
+.quality.bad{background:#fdeef1;border:1px solid #f4c9d2;color:#8f1730}
+.metrics{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}
+.metric{background:#fff;border:1px solid var(--line);border-radius:13px;padding:8px 10px}
+.metric .mt{display:flex;justify-content:space-between;font-size:.68rem;color:var(--tl);margin-bottom:5px}
+.metric .mt b{color:var(--pd);font-weight:800}
+.bar{height:7px;background:#f3e6eb;border-radius:999px;overflow:hidden}
+.bar i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--pl),var(--p));transition:width .5s}
+.bar.gold i{background:linear-gradient(90deg,var(--a2),var(--a))}
+.spinner{width:26px;height:26px;border:3px solid #f0dfe5;border-top-color:var(--p);border-radius:50%;animation:spin .7s linear infinite;margin:12px auto}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading{text-align:center;padding:18px 8px}
+.loading .t{font-size:.82rem;color:var(--pd);font-weight:800}
+.loading .s{font-size:.7rem;color:var(--tl);margin-top:4px}
+.error{background:#fdeef1;border:1px solid #f4c9d2;color:#8f1730;border-radius:13px;padding:11px;font-size:.78rem}
+.md{font-size:.83rem;line-height:2;color:#332228;overflow-wrap:anywhere}
+.md h2,.md h3,.md h4{color:var(--pd);margin:14px 0 5px;line-height:1.6}
+.md h2{font-size:.98rem;border-bottom:2px solid #f3e3e9;padding-bottom:4px}
+.md h3{font-size:.9rem}.md h4{font-size:.84rem}
+.md p{margin:5px 0;color:#3a2a30}
+.md ul,.md ol{padding-right:20px;margin:5px 0}
+.md li{margin:3px 0}
+.md blockquote{margin:8px 0;padding:7px 11px;border-right:3px solid var(--a);background:#fdf8ea;border-radius:8px;font-size:.78rem;color:#5f4b18}
+.md code{background:#f6eaee;border-radius:5px;padding:1px 5px;font-size:.76rem;direction:ltr;display:inline-block}
+.md strong{color:var(--pd)}
+.tbl-wrap{overflow-x:auto;margin:8px 0;border:1px solid var(--line);border-radius:12px}
+.md table{border-collapse:collapse;width:100%;font-size:.75rem;min-width:320px}
+.md th,.md td{border-bottom:1px solid var(--line);padding:7px 9px;text-align:right;vertical-align:top}
+.md th{background:#f9edf1;color:var(--pd);font-size:.72rem}
+.md tr:last-child td{border-bottom:0}
+.ai-tag{display:flex;align-items:center;gap:6px;font-size:.7rem;color:var(--tl);margin-bottom:8px;flex-wrap:wrap}
+.result-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.note{font-size:.72rem;color:var(--tl);line-height:1.8}
+.danger-box{background:#fdeef1;border:1px solid #f4c9d2;color:#8f1730;border-radius:13px;padding:11px;font-size:.77rem;line-height:1.8}
+.warn-box{background:#fff8e6;border:1px solid #f2dfa8;color:#7a5a00;border-radius:13px;padding:11px;font-size:.77rem;line-height:1.8}
+.survey-q{border:1px solid var(--line);border-radius:16px;padding:12px;margin-bottom:10px;background:#fff}
+.survey-q h4{font-size:.82rem;color:var(--pd);margin-bottom:7px;display:flex;gap:7px;align-items:center}
+.survey-q .num{width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,var(--p),var(--pd));color:#fff;display:grid;place-items:center;font-size:.65rem;flex:0 0 22px}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.opt{border:1.5px solid #ead8df;background:#fffafc;border-radius:11px;padding:8px 9px;font-size:.74rem;text-align:right;transition:.15s}
+.opt:hover{border-color:#dbadbf}
+.opt.sel{border-color:var(--p);background:#fbeaf0;color:var(--pd);font-weight:800;box-shadow:0 0 0 3px rgba(142,59,90,.08)}
+.progress{height:8px;background:#f2e4e9;border-radius:999px;overflow:hidden;margin:8px 0}
+.progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--a2),var(--p));transition:width .35s}
+.profile-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.profile-grid .wide{grid-column:1/-1}
+.chips{display:flex;gap:6px;overflow-x:auto;padding:2px 0 8px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:0 0 auto;border:1.5px solid #e8d3dc;background:#fff;color:var(--pd);border-radius:999px;padding:6px 11px;font-size:.7rem;font-weight:700;white-space:nowrap}
+.chip.on{background:linear-gradient(135deg,var(--p),var(--pd));color:#fff;border-color:transparent}
+.p-list{display:grid;gap:10px}
+.p-card{display:flex;gap:10px;align-items:stretch;text-align:right;background:#fff;border:1px solid var(--line);border-radius:18px;padding:10px;box-shadow:0 5px 16px rgba(92,35,56,.05);width:100%}
+.p-card:hover{border-color:#e4bccb;transform:translateY(-1px)}
+.p-card img{width:84px;height:96px;flex:0 0 84px;border-radius:12px;object-fit:cover;background:#faf0f3}
+.p-info{flex:1;min-width:0}
+.p-info h4{font-size:.8rem;color:var(--pd);line-height:1.6;margin-bottom:2px}
+.p-cat{font-size:.66rem;color:#9a7f89}
+.p-price{font-size:.86rem;color:var(--p);font-weight:900;margin:4px 0}
+.p-tags{display:flex;gap:4px;flex-wrap:wrap}
+.tag{font-size:.58rem;background:#f7eaf0;color:#7a4a5e;border-radius:999px;padding:1px 6px}
+.empty{text-align:center;color:var(--tl);font-size:.8rem;padding:18px 8px}
+.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:560px;background:rgba(255,255,255,.96);backdrop-filter:blur(12px);display:flex;border-top:1px solid var(--line);box-shadow:0 -8px 30px rgba(92,35,56,.08);z-index:60;padding-bottom:env(safe-area-inset-bottom)}
+.nav button{flex:1;border:0;background:transparent;padding:8px 1px 9px;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:.52rem;color:#9b818b;font-weight:700}
+.nav button.active{color:var(--p)}
+.nav svg{width:20px;height:20px}
+.modal-o{display:none;position:fixed;inset:0;background:rgba(36,20,27,.52);z-index:100;align-items:flex-end;justify-content:center;padding:0}
+.modal-o.show{display:flex}
+.modal{background:#fff;border-radius:24px 24px 0 0;width:100%;max-width:560px;max-height:88vh;overflow-y:auto;padding:18px 16px 34px;position:relative}
+.modal .x{position:sticky;top:0;float:left;border:0;background:#f7eaf0;color:var(--pd);width:34px;height:34px;border-radius:50%;font-size:1.1rem;z-index:2}
+.modal img.hero-img{width:100%;max-height:300px;object-fit:contain;border-radius:16px;background:#fdf5f7;margin:6px 0 10px}
+.spec{display:grid;grid-template-columns:auto 1fr;gap:5px 10px;font-size:.74rem;margin:6px 0}
+.spec b{color:var(--pd);font-size:.7rem}
+.spec span{color:#5b4650}
+.hist{display:flex;align-items:center;gap:9px;padding:9px 0;border-bottom:1px solid var(--line);font-size:.74rem}
+.hist:last-child{border-bottom:0}
+.hist .hi{width:34px;height:34px;border-radius:11px;background:#f9edf1;display:grid;place-items:center;flex:0 0 34px}
+.hist .hm{flex:1;min-width:0}
+.hist .hm b{display:block;color:var(--pd);font-size:.76rem}
+.hist .hm span{font-size:.64rem;color:var(--tl)}
+.hist button{border:1px solid #e8d3dc;background:#fff;color:var(--pd);border-radius:9px;padding:4px 8px;font-size:.66rem}
+.toast-wrap{position:fixed;top:12px;left:50%;transform:translateX(-50%);z-index:200;display:flex;flex-direction:column;gap:6px;width:min(92vw,460px)}
+.toast{background:#2b1a21;color:#fff;border-radius:12px;padding:9px 13px;font-size:.76rem;box-shadow:0 10px 30px rgba(0,0,0,.2);animation:pop .25s ease}
+.toast.ok{background:#1d5c42}.toast.bad{background:#8f1730}
+@keyframes pop{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.admin-table{width:100%;border-collapse:collapse;font-size:.7rem}
+.admin-table th,.admin-table td{border-bottom:1px solid var(--line);padding:6px 4px;text-align:right}
+.admin-table th{color:var(--pd);font-size:.66rem}
+.stat{background:linear-gradient(180deg,#fff,#fdf6f8);border:1px solid var(--line);border-radius:14px;padding:9px;text-align:center}
+.stat b{display:block;font-size:1rem;color:var(--pd)}
+.stat span{font-size:.62rem;color:var(--tl)}
+.adm-pane{animation:fade .2s ease}
+.adm-item{border:1px solid var(--line);border-radius:14px;padding:10px 11px;margin-bottom:8px;background:#fff}
+.adm-item .top{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
+.adm-item .top b{font-size:.75rem;color:var(--pd);overflow:hidden;text-overflow:ellipsis;line-height:1.6}
+.adm-item .meta{font-size:.66rem;color:var(--tl);margin-top:3px}
+.adm-item .prev{font-size:.68rem;color:#5b4650;margin-top:5px;line-height:1.7;max-height:3.4em;overflow:hidden}
+.adm-actions{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px}
+.adm-actions button{border:1px solid #e8d3dc;background:#fff;color:var(--pd);border-radius:9px;padding:4px 8px;font-size:.66rem;font-weight:700}
+.adm-actions button.danger{border-color:#f4c9d2;color:#8f1730;background:#fdeef1}
+.adm-actions button.gold{border-color:#f0dfa9;color:#7a5a00;background:#fbf1d6}
+.adm-actions button.ok{border-color:#cbe8d8;color:#1d5c42;background:#eef8f2}
+.rating{color:var(--a);letter-spacing:1px;font-weight:900}
+footer{padding:8px 16px 18px;text-align:center;font-size:.64rem;color:#a58c95;line-height:1.9}
+@media(max-width:380px){.metrics{grid-template-columns:1fr}.opts{grid-template-columns:1fr}.grid2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="hdr">
+    <div class="logo" aria-hidden="true">
+      <svg viewBox="0 0 48 48" fill="none"><path d="M24 42c-7-7-13-12-13-20a13 13 0 0 1 26 0c0 8-6 13-13 20Z" fill="#fff" opacity=".92"/><path d="M24 34c-3.5-4-6.5-7-6.5-11.5a6.5 6.5 0 0 1 13 0C30.5 27 27.5 30 24 34Z" fill="#8e3b5a"/><circle cx="24" cy="18" r="3" fill="#c9a227"/></svg>
+    </div>
+    <div class="grow">
+      <h1>مشاور زیبایی آریا</h1>
+      <div class="sub">تحلیل پوست و مو + پیشنهاد محصولات آریا</div>
+    </div>
+    <div class="ai-badge" id="aiBadge"><span class="ai-dot" id="aiDot"></span><span id="aiTxt">اتصال...</span></div>
+    <button class="user-chip" id="userChip" onclick="go('dash')" title="حساب من"></button>
+  </header>
+
+  <main>
+    <!-- HOME -->
+    <section class="scr active" id="screen-home">
+      <div class="card hero">
+        <h2>🌸 به مشاور زیبایی آریا خوش آمدید</h2>
+        <p class="lead">عکس پوست یا موی خود را بفرستید تا تحلیل پیکسلی + تفسیر هوشمند بگیرید و از میان محصولات رسمی آریا، پک مناسب خودتان را ببینید.</p>
+        <div class="row" style="margin-top:10px">
+          <span class="pill ok">🔒 نسخه فشرده برای ویژن AI</span>
+          <span class="pill gold">فقط محصولات aryamlm.ir</span>
+          <span class="pill">⚠️ مشاوره زیبایی، نه تشخیص پزشکی</span>
+        </div>
+      </div>
+
+      <div class="card" id="authCard">
+        <h2>🔐 ورود / ثبت‌نام</h2>
+        <p>برای استفاده از تحلیل هوشمند، وارد حساب خود شوید. اولین حساب، مدیر می‌شود و بقیه پس از تأیید مدیر فعال می‌شوند.</p>
+        <div class="tabs">
+          <button class="tab active" id="tabLogin" onclick="authTab('login')">ورود</button>
+          <button class="tab" id="tabSignup" onclick="authTab('signup')">ثبت‌نام</button>
+        </div>
+        <input id="authEmail" type="email" placeholder="ایمیل" autocomplete="email" style="direction:ltr;margin-bottom:7px">
+        <input id="authPass" type="password" placeholder="رمز عبور (حداقل ۶ کاراکتر)" autocomplete="current-password" style="direction:ltr">
+        <button class="btn" id="authBtn" onclick="authSubmit()" style="margin-top:9px">ورود</button>
+        <div class="auth-msg" id="authMsg"></div>
+      </div>
+
+      <div class="card soft" id="welcomeCard" hidden>
+        <h2>✨ خوش آمدید</h2>
+        <p id="welcomeEmail" style="font-size:.8rem;color:var(--pd);font-weight:800"></p>
+        <div class="progress" style="margin-top:8px"><i id="welcomeBar"></i></div>
+        <p id="welcomeQuota" class="note" style="margin-top:5px"></p>
+        <div class="row" style="margin-top:10px">
+          <button class="btn small" onclick="go('skin')">تحلیل پوست</button>
+          <button class="btn small ghost" onclick="go('survey')">پرسش‌نامه</button>
+        </div>
+      </div>
+
+      <button class="feature" onclick="go('skin')">
+        <span class="fi">🧖‍♀️</span>
+        <span><h3>تحلیل پوست با عکس</h3><p>چربی، خشکی، قرمزی، لک، جوش و بافت پوست + روتین و پک پیشنهادی</p></span>
+      </button>
+      <button class="feature" onclick="go('iris')">
+        <span class="fi">👁️</span>
+        <span><h3>تحلیل عنبیه</h3><p>نقشه ۱۲ ساعتی عنبیه، نشانه‌های ساختاری + روتین تخصصی آریا</p></span>
+      </button>
+      <button class="feature" onclick="go('hair')">
+        <span class="fi">💇‍♀️</span>
+        <span><h3>تحلیل مو و کف سر</h3><p>تراکم، چربی، شوره، درخشندگی و پیشنهاد محصولات مو، مژه و ابرو</p></span>
+      </button>
+      <button class="feature" onclick="go('survey')">
+        <span class="fi">📋</span>
+        <span><h3>پرسش‌نامه پوست و مو</h3><p>۱۳ سؤال کوتاه برای شناخت نوع پوست، دغدغه‌ها و انتخاب پک</p></span>
+      </button>
+      <button class="feature" onclick="go('products')">
+        <span class="fi">🛍️</span>
+        <span><h3>محصولات آریا</h3><p>۱۶ محصول رسمی، قیمت تومانی و لینک خرید از aryamlm.ir</p></span>
+      </button>
+      <button class="feature" onclick="go('dash')">
+        <span class="fi">👤</span>
+        <span><h3>حساب من</h3><p>سهمیه روزانه، تاریخچه تحلیل‌ها و پروفایل پوستی</p></span>
+      </button>
+
+      <div class="card">
+        <h2>چطور کار می‌کند؟</h2>
+        <p><b>۱.</b> عکس واضح از پوست، مو یا چشم (نور طبیعی، بدون فلاش) انتخاب کنید.</p>
+        <p><b>۲.</b> تحلیل پیکسلی روی گوشی انجام می‌شود؛ آمار پیکسلی + نسخه فشرده عکس برای تفسیر ویژن به سرور می‌رود.</p>
+        <p><b>۳.</b> گزارش فارسی + پک پیشنهادی از محصولات موجود آریا دریافت می‌کنید.</p>
+      </div>
+      <div class="danger-box">⚠️ این اپ ابزار کمک‌مشاوره است و جای تشخیص پزشک پوست را نمی‌گیرد. برای علائم شدید، بارداری/شیردهی یا مصرف دارو با پزشک مشورت کنید.</div>
+    </section>
+
+    <!-- SKIN -->
+    <section class="scr" id="screen-skin">
+      <div class="card">
+        <h2>🧖‍♀️ تحلیل پوست</h2>
+        <p>عکس واضح از صورت در نور طبیعی. بهتر است آرایش پاک شده و فلاش خاموش باشد. تحلیل پیکسلی روی گوشی + ارسال نسخه فشرده برای ویژن AI.</p>
+      </div>
+      <div class="upload" id="skinUp" onclick="$('skinFile').click()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 7h3l2-2h6l2 2h3v13H4z"/><circle cx="12" cy="13" r="4"/></svg>
+        <div class="hint">انتخاب عکس از گالری یا دوربین</div>
+        <div class="subhint">JPG / PNG — حداکثر ۸۰۰px برای تحلیل کافی است</div>
+      </div>
+      <input type="file" id="skinFile" accept="image/*" capture="user" style="display:none" onchange="handleImage('skin')">
+      <div class="preview" id="skinPreview"><img id="skinImg" alt="پیش‌نمایش عکس پوست"></div>
+      <div id="skinLocal"></div>
+      <button class="btn" id="skinSend" hidden onclick="sendAnalysis('skin')">دریافت گزارش هوشمند</button>
+      <div id="skinRes"></div>
+      <div class="note" style="margin-top:8px">💡 برای نتیجه بهتر: نور روز، صورت کامل در کادر، بدون فلاش و بدون فیلتر.</div>
+    </section>
+
+    <!-- IRIS -->
+    <section class="scr" id="screen-iris">
+      <div class="card">
+        <h2>👁️ تحلیل عنبیه</h2>
+        <p>عکس واضح از یک چشم، مستقیم از روبه‌رو و بدون فلاش. تحلیل شامل نقشه ۱۲ ساعتی، رنگ و ویژگی‌های ساختاری عنبیه است. نسخه فشرده برای ویژن AI ارسال می‌شود.</p>
+      </div>
+      <div class="tabs">
+        <button class="tab active" onclick="setEye('right', this)">چشم راست</button>
+        <button class="tab" onclick="setEye('left', this)">چشم چپ</button>
+      </div>
+      <div class="upload" id="irisUp" onclick="$('irisFile').click()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg>
+        <div class="hint">انتخاب عکس چشم از گالری یا دوربین</div>
+        <div class="subhint">عنبیه باید واضح و بیشتر کادر را پر کند</div>
+      </div>
+      <input type="file" id="irisFile" accept="image/*" capture="user" style="display:none" onchange="handleIrisImage()">
+      <div class="preview" id="irisPreview"><img id="irisImg" alt="پیش‌نمایش عکس عنبیه"></div>
+      <div id="irisLocal"></div>
+      <button class="btn" id="irisSend" hidden onclick="sendIrisAnalysis()">دریافت گزارش و روتین عنبیه</button>
+      <div id="irisRes"></div>
+      <div class="note" style="margin-top:8px">🕐 نقشه عنبیه: ساعت ۱۲ در بالا و ساعت‌گرد. تحلیل پیکسلی تقریبی است و جای معاینه پزشک را نمی‌گیرد.</div>
+    </section>
+
+    <!-- HAIR -->
+    <section class="scr" id="screen-hair">
+      <div class="card">
+        <h2>💇‍♀️ تحلیل مو و کف سر</h2>
+        <p>عکس واضح از مو یا کف سر. اگر مشکل اصلی شوره یا ریزش است، کف سر را در کادر بگیرید. نسخه فشرده برای ویژن AI ارسال می‌شود.</p>
+      </div>
+      <div class="upload" id="hairUp" onclick="$('hairFile').click()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 7h3l2-2h6l2 2h3v13H4z"/><path d="M8 12c2-3 6-3 8 0M8 16c2-2 6-2 8 0"/></svg>
+        <div class="hint">انتخاب عکس از گالری یا دوربین</div>
+        <div class="subhint">برای ریزش/شوره، کف سر را نزدیک‌تر بگیرید</div>
+      </div>
+      <input type="file" id="hairFile" accept="image/*" capture="environment" style="display:none" onchange="handleImage('hair')">
+      <div class="preview" id="hairPreview"><img id="hairImg" alt="پیش‌نمایش عکس مو"></div>
+      <div id="hairLocal"></div>
+      <button class="btn" id="hairSend" hidden onclick="sendAnalysis('hair')">دریافت گزارش هوشمند</button>
+      <div id="hairRes"></div>
+    </section>
+
+    <!-- SURVEY -->
+    <section class="scr" id="screen-survey">
+      <div class="card">
+        <h2>📋 پرسش‌نامه پوست و مو</h2>
+        <p>۱۳ سؤال کوتاه. با پاسخ‌ها، نوع پوست/مو، دغدغه‌های اصلی و ترجیح پکیج مشخص می‌شود و روتین دقیق‌تر می‌شود.</p>
+        <div class="progress"><i id="surveyBar"></i></div>
+        <p class="note" id="surveyProgress">۰ پاسخ داده شده</p>
+      </div>
+      <div id="surveyBox"></div>
+      <button class="btn" id="surveyBtn" onclick="calcSurvey()" disabled>دریافت گزارش و پک پیشنهادی</button>
+      <div id="surveyRes"></div>
+    </section>
+
+    <!-- PRODUCTS -->
+    <section class="scr" id="screen-products">
+      <div class="card">
+        <h2>🛍️ محصولات آریا</h2>
+        <p>فقط محصولات موجود در <a href="https://aryamlm.ir/newportal/Guest/" target="_blank" rel="noopener" style="color:var(--p);font-weight:800">فروشگاه رسمی آریا</a> — قیمت مصرف‌کننده به تومان.</p>
+        <input id="productSearch" type="search" placeholder="جست‌وجوی محصول..." oninput="renderProducts()" style="margin-top:9px">
+      </div>
+      <div class="chips" id="productChips"></div>
+      <div class="p-list" id="productList"><div class="empty">در حال بارگذاری محصولات...</div></div>
+    </section>
+
+    <!-- DASHBOARD -->
+    <section class="scr" id="screen-dash">
+      <div class="card" id="dashNotLogged">
+        <h2>👤 حساب من</h2>
+        <p>برای دیدن سهمیه و تاریخچه، وارد شوید.</p>
+        <button class="btn" onclick="go('home')" style="margin-top:8px">ورود / ثبت‌نام</button>
+      </div>
+
+      <div id="dashLogged" hidden>
+        <div class="card">
+          <h2>👤 حساب من</h2>
+          <p id="dashEmail" style="font-weight:800;color:var(--pd)"></p>
+          <div class="row" style="margin-top:6px"><span class="pill" id="dashRole"></span><span class="pill gold" id="dashEngine"></span></div>
+          <div class="progress" style="margin-top:10px"><i id="dashBar"></i></div>
+          <p class="note" id="dashQuota" style="margin-top:6px"></p>
+          <div class="row" style="margin-top:10px">
+            <button class="btn small ghost" onclick="refreshMe()">به‌روزرسانی</button>
+            <button class="btn small danger" onclick="logout()">خروج از حساب</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>🧴 پروفایل پوستی من</h2>
+          <p class="note">این اطلاعات به تفسیر بهتر کمک می‌کند. خالی گذاشتن هم اشکالی ندارد.</p>
+          <div class="profile-grid" style="margin-top:8px">
+            <div class="field wide"><label for="profileName">نام (برای عنوان گزارش)</label><input id="profileName" placeholder="مثلاً ابوالفضل"></div>
+            <div class="field"><label for="profileAge">سن</label><input id="profileAge" type="number" min="10" max="90" placeholder="مثلاً ۳۲"></div>
+            <div class="field"><label for="profileSex">جنسیت</label><select id="profileSex"><option value="">انتخاب</option><option>زن</option><option>مرد</option></select></div>
+            <div class="field"><label for="profilePregnant">بارداری/شیردهی</label><select id="profilePregnant"><option value="">انتخاب</option><option>خیر</option><option>بارداری</option><option>شیردهی</option></select></div>
+            <div class="field"><label for="profileSun">قرارگیری در آفتاب</label><select id="profileSun"><option value="">انتخاب</option><option>کم</option><option>متوسط</option><option>زیاد</option></select></div>
+            <div class="field wide"><label for="profileAllergies">آلرژی‌ها</label><input id="profileAllergies" placeholder="مثلاً حساسیت به عطر یا رز"></div>
+            <div class="field wide"><label for="profileMeds">داروهای مصرفی</label><input id="profileMeds" placeholder="مثلاً ایزوترتینوئین، رتینوئید"></div>
+            <div class="field wide"><label for="profileRoutine">روتین فعلی</label><input id="profileRoutine" placeholder="مثلاً شوینده + ضدآفتاب"></div>
+          </div>
+          <button class="btn small gold" onclick="saveProfile()" style="margin-top:8px">ذخیره پروفایل</button>
+        </div>
+
+        <div class="card">
+          <h2>📜 تاریخچه تحلیل‌ها</h2>
+          <div id="dashHistory"><p class="note">هنوز تحلیلی انجام نشده است.</p></div>
+        </div>
+
+        <div class="card" id="adminCard" hidden>
+          <h2>🛠️ پنل مدیر</h2>
+          <p>مدیریت کاربران، تحلیل‌ها، بازخورد و تنظیمات سرویس.</p>
+          <button class="btn" style="margin-top:8px" onclick="window.open('https://arya-api.arshadirad7475.workers.dev/admin','_blank')">صفحهٔ جدا ادمین ↗</button>
+          <button class="btn ghost" style="margin-top:8px" onclick="go('admin')">پنل مدیریت درون اپ</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ADMIN -->
+    <section class="scr" id="screen-admin">
+      <div class="card">
+        <div class="row" style="justify-content:space-between;align-items:center">
+          <button class="btn small ghost" onclick="go('dash')">→ حساب من</button>
+          <span class="pill gold">مدیر</span>
+        </div>
+        <h2 style="margin-top:8px">🛠️ پنل مدیریت آریا</h2>
+        <div class="grid3" id="admStats" style="margin-top:8px"></div>
+        <div class="row" style="margin-top:8px">
+          <span class="pill" id="admAI"></span>
+          <span class="pill gold" id="admCatalog"></span>
+          <span class="pill" id="admQueue"></span>
+        </div>
+      </div>
+      <div class="tabs">
+        <button class="tab active" onclick="admTab('users',this)">کاربران</button>
+        <button class="tab" onclick="admTab('jobs',this)">تحلیل‌ها</button>
+        <button class="tab" onclick="admTab('feedback',this)">بازخورد</button>
+        <button class="tab" onclick="admTab('settings',this)">تنظیمات</button>
+      </div>
+      <div id="admPane-users" class="adm-pane">
+        <div class="card">
+          <input id="admUserSearch" type="search" placeholder="جستجوی ایمیل..." oninput="renderAdminUsers()">
+          <select id="admUserStatus" onchange="renderAdminUsers()" style="margin-top:7px">
+            <option value="">همه وضعیت‌ها</option>
+            <option value="pending">در انتظار تأیید</option>
+            <option value="approved">تأییدشده</option>
+            <option value="blocked">مسدود</option>
+          </select>
+        </div>
+        <div id="admUserList"></div>
+      </div>
+      <div id="admPane-jobs" class="adm-pane hidden">
+        <div class="card">
+          <div class="grid2">
+            <select id="admJobType" onchange="renderAdminJobs()">
+              <option value="">همه انواع</option>
+              <option value="skin">پوست</option>
+              <option value="iris">عنبیه</option>
+              <option value="hair">مو</option>
+              <option value="survey">پرسش‌نامه</option>
+            </select>
+            <select id="admJobStatus" onchange="renderAdminJobs()">
+              <option value="">همه وضعیت‌ها</option>
+              <option value="pending">در صف</option>
+              <option value="processing">در حال پردازش</option>
+              <option value="completed">تکمیل</option>
+              <option value="failed">ناموفق</option>
+            </select>
+          </div>
+          <input id="admJobSearch" type="search" placeholder="جستجوی ایمیل..." oninput="renderAdminJobs()" style="margin-top:7px">
+        </div>
+        <div id="admJobList"></div>
+      </div>
+      <div id="admPane-feedback" class="adm-pane hidden">
+        <div id="admFeedbackList"></div>
+      </div>
+      <div id="admPane-settings" class="adm-pane hidden">
+        <div class="card">
+          <h2>⚙️ تنظیمات سرویس</h2>
+          <label for="admDailyLimit">سهمیه روزانه پیش‌فرض همه کاربران</label>
+          <div class="row" style="margin-top:6px">
+            <input id="admDailyLimit" type="number" min="1" max="100" style="max-width:120px">
+            <button class="btn small gold" onclick="saveAdminSettings()">ذخیره</button>
+          </div>
+          <p class="note" id="admSettingsMsg"></p>
+          <h3>وضعیت</h3>
+          <p class="note" id="admServiceInfo"></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <nav class="nav">
+    <button class="active" id="n-home" onclick="go('home')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l9 8v10a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1V11z"/></svg>خانه</button>
+    <button id="n-iris" onclick="go('iris')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>عنبیه</button>
+    <button id="n-skin" onclick="go('skin')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h3l2-2h6l2 2h3v13H4z"/><circle cx="12" cy="13" r="4"/></svg>پوست</button>
+    <button id="n-hair" onclick="go('hair')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20c1-7 3-12 8-15 5 3 7 8 8 15"/><path d="M8 20c1-5 2-8 4-11 2 3 3 6 4 11"/></svg>مو</button>
+    <button id="n-survey" onclick="go('survey')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>پرسش‌نامه</button>
+    <button id="n-products" onclick="go('products')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 8h16l-1 12H5z"/><path d="M8 8a4 4 0 0 1 8 0"/></svg>محصولات</button>
+    <button id="n-dash" onclick="go('dash')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-5 4-7 8-7s7 2 8 7"/></svg>حساب</button>
+  </nav>
+</div>
+
+<div class="modal-o" id="modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal" id="modalBody"></div>
+</div>
+<div class="toast-wrap" id="toastWrap"></div>
+
+<script>
+/* ================= CONFIG ================= */
+const IS_LOCAL = /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
+const CONFIG = {
+  API: (localStorage.getItem('arya_api') || (IS_LOCAL ? 'http://127.0.0.1:8788' : 'https://arya-api.arshadirad7475.workers.dev')).replace(/\/+$/, ''),
+  VERSION: '0.1.0'
+};
+
+/* ================= STATE ================= */
+const state = {
+  user: null,
+  products: [],
+  fullProducts: [],
+  productMeta: null,
+  survey: {},
+  surveyInit: false,
+  profile: {},
+  local: { skin: null, iris: null, hair: null },
+  last: { skin: null, iris: null, hair: null, survey: null },
+  irisEye: 'right',
+  busy: false,
+  health: null,
+  filter: 'all',
+  admin: { users: [], jobs: [], feedback: [], overview: null, settings: null, tab: 'users' }
+};
+
+const $ = (id) => document.getElementById(id);
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+const esc = (s) => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+const escAttr = (s) => esc(s).replace(/'/g, '&#39;');
+const fmtT = (n) => { try { return Number(n).toLocaleString('fa-IR'); } catch { return String(n); } };
+const clamp = (n, lo = 0, hi = 100) => Number.isFinite(Number(n)) ? Math.max(lo, Math.min(hi, Number(n))) : 0;
+
+function toast(message, type) {
+  const el = document.createElement('div');
+  el.className = 'toast ' + (type || '');
+  el.textContent = message;
+  $('toastWrap').appendChild(el);
+  setTimeout(() => el.remove(), 3800);
+}
+
+/* ================= API ================= */
+async function api(path, body, method) {
+  const headers = { 'Content-Type': 'application/json', Accept: 'application/json' };
+  if (state.user && state.user.token) headers.Authorization = 'Bearer ' + state.user.token;
+  const res = await fetch(CONFIG.API + path, {
+    method: method || (body ? 'POST' : 'GET'),
+    headers,
+    body: body ? JSON.stringify(body) : undefined
+  });
+  let data = null;
+  try { data = await res.json(); } catch (e) { data = { ok: false, error: 'پاسخ سرور نامعتبر است.' }; }
+  if (!res.ok && data && data.ok === undefined) data.ok = false;
+  return data;
+}
+
+async function probeHealth() {
+  const dot = $('aiDot'), txt = $('aiTxt');
+  try {
+    const h = await fetch(CONFIG.API + '/health', { cache: 'no-store' }).then((r) => r.json());
+    state.health = h;
+    if (h && h.ai_configured) {
+      dot.className = 'ai-dot';
+      txt.textContent = 'هوش مصنوعی فعال';
+    } else {
+      dot.className = 'ai-dot local';
+      txt.textContent = 'تحلیل محلی';
+    }
+  } catch (e) {
+    dot.className = 'ai-dot off';
+    txt.textContent = 'سرور در دسترس نیست';
+  }
+  if (state.user) renderHome();
+}
+
+/* ================= AUTH ================= */
+let authMode = 'login';
+function authTab(mode) {
+  authMode = mode;
+  $('tabLogin').classList.toggle('active', mode === 'login');
+  $('tabSignup').classList.toggle('active', mode === 'signup');
+  $('authBtn').textContent = mode === 'signup' ? 'ثبت‌نام' : 'ورود';
+  $('authMsg').innerHTML = '';
+}
+
+function loadSession() {
+  try {
+    const u = JSON.parse(localStorage.getItem('arya_session') || 'null');
+    if (u && u.token && u.email) state.user = u;
+  } catch (e) { state.user = null; }
+}
+function saveSession() {
+  try {
+    if (state.user) localStorage.setItem('arya_session', JSON.stringify(state.user));
+    else localStorage.removeItem('arya_session');
+  } catch (e) {}
+}
+function clearSession() { state.user = null; saveSession(); }
+
+async function authSubmit() {
+  const email = $('authEmail').value.trim().toLowerCase();
+  const password = $('authPass').value;
+  const msg = $('authMsg');
+  if (!email || !password) { msg.innerHTML = '<span class="msg-bad">ایمیل و رمز را پر کنید.</span>'; return; }
+  msg.innerHTML = '<div class="spinner" style="width:18px;height:18px;margin:6px auto"></div>';
+  try {
+    if (authMode === 'signup') {
+      const r = await api('/api/register', { email, password });
+      if (!r.ok) { msg.innerHTML = '<span class="msg-bad">' + esc(r.error || 'خطا') + '</span>'; return; }
+      if (r.approved) {
+        const l = await api('/api/login', { email, password });
+        if (l.ok) { await afterLogin(l); return; }
+      }
+      msg.innerHTML = '<span class="msg-ok">' + esc(r.message || 'ثبت‌نام شد.') + '</span>';
+      authTab('login');
+      return;
+    }
+    const r = await api('/api/login', { email, password });
+    if (!r.ok) { msg.innerHTML = '<span class="msg-bad">' + esc(r.error || 'خطا') + '</span>'; return; }
+    await afterLogin(r);
+  } catch (e) {
+    msg.innerHTML = '<span class="msg-bad">خطا در ارتباط با سرور.</span>';
+  }
+}
+
+async function afterLogin(r) {
+  state.user = {
+    email: r.user.email, token: r.token, role: r.user.role,
+    limit: r.limit, remaining: r.remaining, used: r.used
+  };
+  saveSession();
+  $('authPass').value = '';
+  $('authMsg').innerHTML = '';
+  updAuthUI();
+  await refreshMe();
+  go('dash');
+  if (location.hash === '#admin' && r.user.role === 'admin') go('admin');
+  toast('خوش آمدید ' + r.user.email, 'ok');
+}
+
+function updAuthUI() {
+  const logged = !!state.user;
+  $('authCard').hidden = logged;
+  $('welcomeCard').hidden = !logged;
+  const chip = $('userChip');
+  chip.classList.toggle('on', logged);
+  chip.textContent = logged ? (state.user.email || '').split('@')[0] : '';
+  renderHome();
+}
+
+async function refreshMe() {
+  if (!state.user) { renderDash(); return; }
+  try {
+    const r = await api('/api/me', { token: state.user.token });
+    if (!r.ok) {
+      if (String(r.error || '').includes('نشست')) { clearSession(); updAuthUI(); }
+      renderDash(); return;
+    }
+    state.user = {
+      ...state.user,
+      email: r.user.email, role: r.user.role,
+      limit: r.limit, remaining: r.remaining, used: r.used
+    };
+    saveSession();
+    renderHome();
+    renderDash(r.history || []);
+    if (location.hash === '#admin' && r.user.role === 'admin') go('admin');
+  } catch (e) {
+    renderDash();
+  }
+}
+
+async function logout() {
+  if (!confirm('از حساب کاربری خارج می‌شوید؟')) return;
+  try { await api('/api/logout', { token: state.user && state.user.token }); } catch (e) {}
+  clearSession();
+  updAuthUI();
+  go('home');
+  toast('خارج شدید.');
+}
+
+/* ================= NAV ================= */
+function isAdminUser() {
+  return !!(state.user && state.user.role === 'admin');
+}
+function go(name) {
+  if (name === 'admin' && !isAdminUser()) {
+    toast('دسترسی مدیر لازم است.', 'bad');
+    name = 'home';
+  }
+  document.querySelectorAll('.scr').forEach((s) => s.classList.remove('active'));
+  document.querySelectorAll('.nav button').forEach((b) => b.classList.remove('active'));
+  const sc = $('screen-' + name);
+  if (sc) sc.classList.add('active');
+  const nb = $('n-' + name);
+  if (nb) nb.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (name === 'dash') { renderDash(); if (state.user) refreshMe(); }
+  if (name === 'admin') loadAdminAll();
+  if (name === 'products' && !state.products.length) loadProducts();
+  if (name === 'survey') initSurvey();
+}
+
+/* ================= HOME ================= */
+function renderHome() {
+  const logged = !!state.user;
+  $('welcomeCard').hidden = !logged;
+  $('authCard').hidden = logged;
+  if (!logged) return;
+  $('welcomeEmail').textContent = state.user.email || '';
+  const remaining = Number(state.user.remaining || 0);
+  const limit = Number(state.user.limit || 10);
+  const pct = limit ? Math.round(remaining / limit * 100) : 0;
+  $('welcomeBar').style.width = pct + '%';
+  $('welcomeQuota').textContent = remaining + ' از ' + limit + ' تحلیل امروز باقی مانده';
+  $('userChip').textContent = (state.user.email || '').split('@')[0];
+  $('userChip').classList.add('on');
+}
+
+/* ================= IMAGE ANALYSIS ================= */
+function handleImage(type) {
+  const input = $(type + 'File');
+  const file = input.files && input.files[0];
+  if (!file) return;
+  if (!file.type.startsWith('image/')) { toast('فایل انتخاب‌شده عکس نیست.', 'bad'); return; }
+  const img = new Image();
+  const url = URL.createObjectURL(file);
+  img.onload = () => {
+    const res = computeImageMetrics(img, type);
+    res.image = compressForAI(img, 800, 0.75);
+    const local = $(type + 'Local');
+    const send = $(type + 'Send');
+    const prev = $(type + 'Preview');
+    $(type + 'Img').src = url;
+    prev.classList.add('on');
+    $(type + 'Up').classList.add('hidden');
+    local.innerHTML = qualityCard(res) + (res.ok ? renderMetrics(res.metrics, type) : helpCard(type));
+    if (res.ok) {
+      state.local[type] = res;
+      send.hidden = false;
+      send.textContent = type === 'skin' ? 'دریافت گزارش و پک پوستی' : 'دریافت گزارش و پک مو';
+    } else {
+      state.local[type] = null;
+      send.hidden = true;
+    }
+  };
+  img.onerror = () => toast('عکس خوانده نشد؛ JPG یا PNG بفرستید.', 'bad');
+  img.src = url;
+}
+
+function setEye(side, el) {
+  state.irisEye = side;
+  document.querySelectorAll('#screen-iris .tab').forEach((t) => t.classList.remove('active'));
+  if (el) el.classList.add('active');
+}
+
+function handleIrisImage() {
+  const input = $('irisFile');
+  const file = input.files && input.files[0];
+  if (!file) return;
+  if (!file.type.startsWith('image/')) { toast('فایل انتخاب‌شده عکس نیست.', 'bad'); return; }
+  const img = new Image();
+  const url = URL.createObjectURL(file);
+  img.onload = () => {
+    const res = computeIrisMetrics(img);
+    res.image = compressForAI(img, 900, 0.75);
+    $('irisImg').src = url;
+    $('irisPreview').classList.add('on');
+    $('irisUp').classList.add('hidden');
+    $('irisLocal').innerHTML = qualityCard(res) + (res.ok ? renderIrisMetrics(res.metrics) : helpCard('iris'));
+    if (res.ok) {
+      state.local.iris = res;
+      $('irisSend').hidden = false;
+    } else {
+      state.local.iris = null;
+      $('irisSend').hidden = true;
+    }
+  };
+  img.onerror = () => toast('عکس خوانده نشد؛ JPG یا PNG بفرستید.', 'bad');
+  img.src = url;
+}
+
+function qualityCard(res) {
+  if (!res.ok) return '<div class="quality bad">⚠️ ' + esc(res.note) + '</div>';
+  if (res.warn) return '<div class="quality warn">⚠️ کیفیت عکس متوسط است؛ تحلیل انجام می‌شود ولی برای دقت بیشتر: ' + esc(res.note) + '</div>';
+  return '<div class="quality ok">✅ کیفیت عکس برای تحلیل پیکسلی قابل قبول است. اعداد تقریبی‌اند.</div>';
+}
+
+function helpCard(type) {
+  let tips;
+  if (type === 'skin') tips = ['صورت را کامل در کادر بگیرید.', 'نور طبیعی روز، بدون فلاش.', 'بدون آرایش و فیلتر.', 'عینک و ماسک را بردارید.'];
+  else if (type === 'hair') tips = ['مو یا کف سر را در کادر بگیرید.', 'برای شوره، کف سر را نزدیک‌تر بگیرید.', 'نور طبیعی و بدون فلاش.', 'موی خیس نباشد.'];
+  else tips = ['یک چشم را کامل و از روبه‌رو در کادر بگیرید.', 'نور طبیعی و بدون فلاش مستقیم.', 'عینک و لنز رنگی را بردارید.', 'عنبیه باید واضح و بیشتر کادر را پر کند.'];
+  return '<div class="card soft"><h3>چه عکسی مناسب است؟</h3>' + tips.map((t) => '<p>• ' + t + '</p>').join('') + '</div>';
+}
+
+function compressForAI(img, maxPx, quality) {
+  maxPx = maxPx || 800;
+  quality = quality || 0.75;
+  const sc = Math.min(maxPx / img.width, maxPx / img.height, 1);
+  const cv = document.createElement('canvas');
+  cv.width = Math.max(1, Math.round(img.width * sc));
+  cv.height = Math.max(1, Math.round(img.height * sc));
+  const ctx = cv.getContext('2d');
+  ctx.drawImage(img, 0, 0, cv.width, cv.height);
+  let url = cv.toDataURL('image/jpeg', quality);
+  if (url.length > 1600000) url = cv.toDataURL('image/jpeg', 0.6);
+  return url;
+}
+
+function whiteBalance(d) {
+  const n = d.length / 4;
+  const lim = Math.max(50, Math.round(n * 0.03));
+  if (n < lim) return;
+  const idx = [];
+  for (let i = 0; i < d.length; i += 4) idx.push(i);
+  idx.sort((a, b) => (0.2126 * d[b] + 0.7152 * d[b + 1] + 0.0722 * d[b + 2]) - (0.2126 * d[a] + 0.7152 * d[a + 1] + 0.0722 * d[a + 2]));
+  let sr = 0, sg = 0, sb = 0;
+  for (let i = 0; i < lim; i++) { sr += Math.pow(d[idx[i]] / 255, 2.2); sg += Math.pow(d[idx[i] + 1] / 255, 2.2); sb += Math.pow(d[idx[i] + 2] / 255, 2.2); }
+  sr /= lim; sg /= lim; sb /= lim;
+  const m = (sr + sg + sb) / 3;
+  const k = (c) => Math.max(0.55, Math.min(1.8, m / c));
+  const kr = k(sr), kg = k(sg), kb = k(sb);
+  for (let i = 0; i < d.length; i += 4) {
+    d[i] = Math.max(0, Math.min(255, Math.round(255 * Math.pow(Math.pow(d[i] / 255, 2.2) * kr, 1 / 2.2))));
+    d[i + 1] = Math.max(0, Math.min(255, Math.round(255 * Math.pow(Math.pow(d[i + 1] / 255, 2.2) * kg, 1 / 2.2))));
+    d[i + 2] = Math.max(0, Math.min(255, Math.round(255 * Math.pow(Math.pow(d[i + 2] / 255, 2.2) * kb, 1 / 2.2))));
+  }
+}
+
+function rgb2lab(r, g, b, out) {
+  const f = (c) => { c /= 255; return c > 0.04045 ? Math.pow((c + 0.055) / 1.055, 2.4) : c / 12.92; };
+  const R = f(r), G = f(g), B = f(b);
+  const X = (0.4124 * R + 0.3576 * G + 0.1805 * B) / 0.95047;
+  const Y = 0.2126 * R + 0.7152 * G + 0.0722 * B;
+  const Z = (0.0193 * R + 0.1192 * G + 0.9505 * B) / 1.08883;
+  const gl = (t) => t > 0.008856 ? Math.pow(t, 1 / 3) : 7.787 * t + 16 / 116;
+  const fx = gl(X), fy = gl(Y), fz = gl(Z);
+  out[0] = 116 * fy - 16; out[1] = 500 * (fx - fy); out[2] = 200 * (fy - fz);
+  return out;
+}
+
+function rgbToHsl(r, g, b) {
+  r /= 255; g /= 255; b /= 255;
+  const mx = Math.max(r, g, b), mn = Math.min(r, g, b);
+  let h = 0, s = 0, l = (mx + mn) / 2;
+  if (mx !== mn) {
+    const d = mx - mn;
+    s = l > 0.5 ? d / (2 - mx - mn) : d / (mx + mn);
+    if (mx === r) h = ((g - b) / d + (g < b ? 6 : 0)) / 6;
+    else if (mx === g) h = ((b - r) / d + 2) / 6;
+    else h = ((r - g) / d + 4) / 6;
+  }
+  return [h * 360, s * 100, l * 100];
+}
+
+function computeImageMetrics(img, type) {
+  const max = 320;
+  const sc = Math.min(max / img.width, max / img.height, 1);
+  const cv = document.createElement('canvas');
+  cv.width = Math.max(1, Math.round(img.width * sc));
+  cv.height = Math.max(1, Math.round(img.height * sc));
+  const ctx = cv.getContext('2d', { willReadFrequently: true });
+  ctx.drawImage(img, 0, 0, cv.width, cv.height);
+  const id = ctx.getImageData(0, 0, cv.width, cv.height);
+  whiteBalance(id.data);
+  const d = id.data, w = cv.width, h = cv.height, n = w * h;
+  const mask = new Uint8Array(n);
+  const gray = new Uint8Array(n);
+
+  let skinCount = 0, hairCount = 0, darkCount = 0, redCount = 0, yellowCount = 0, highlightCount = 0, whiteCount = 0;
+  let sumL = 0, sumA = 0, sumB = 0, sumL2 = 0;
+  const lab = [0, 0, 0];
+
+  for (let y = 0; y < h; y++) {
+    for (let x = 0; x < w; x++) {
+      const i = y * w + x, o = i * 4;
+      const r = d[o], g = d[o + 1], b = d[o + 2];
+      gray[i] = Math.round(0.299 * r + 0.587 * g + 0.114 * b);
+      rgb2lab(r, g, b, lab);
+      const L = lab[0], A = lab[1], B = lab[2];
+      const hsl = rgbToHsl(r, g, b);
+      const S = hsl[1];
+      const mx = Math.max(r, g, b), mn = Math.min(r, g, b);
+
+      const skin = r > 55 && g > 28 && b > 15 && r > g && r > b && (mx - mn) > 8 && L > 25;
+      const hair = (L < 38) || ((mx - mn) < 26 && L < 62);
+      if (skin) {
+        mask[i] = 1; skinCount++;
+        sumL += L; sumA += A; sumB += B; sumL2 += L * L;
+        if (L < 42) darkCount++;
+        if (A > 18 && L > 42) redCount++;
+        if (B > 22) yellowCount++;
+        if (L > 82 && S < 28) highlightCount++;
+      } else if (hair) {
+        hairCount++;
+        if (L > 78 && S < 20) whiteCount++;
+        if (L > 82 && S < 30) highlightCount++;
+      }
+    }
+  }
+
+  // Edge density inside the subject mask + regional edges
+  let edgeSum = 0, edgeCount = 0, tzEdge = 0, tzCount = 0, lowEdge = 0, lowCount = 0, sideEdge = 0, sideCount = 0;
+  for (let y = 1; y < h - 1; y++) {
+    for (let x = 1; x < w - 1; x++) {
+      const i = y * w + x;
+      if (!mask[i] && !(type === 'hair' && hairCount > 0 && gray[i] < 90)) continue;
+      const gx = -gray[(y - 1) * w + x - 1] + gray[(y - 1) * w + x + 1] - 2 * gray[y * w + x - 1] + 2 * gray[y * w + x + 1] - gray[(y + 1) * w + x - 1] + gray[(y + 1) * w + x + 1];
+      const gy = -gray[(y - 1) * w + x - 1] - 2 * gray[(y - 1) * w + x] - gray[(y - 1) * w + x + 1] + gray[(y + 1) * w + x - 1] + 2 * gray[(y + 1) * w + x] + gray[(y + 1) * w + x + 1];
+      const e = Math.min(255, Math.sqrt(gx * gx + gy * gy));
+      edgeSum += e; edgeCount++;
+      const fx = x / w, fy = y / h;
+      if (fx > 0.32 && fx < 0.68 && fy < 0.62) { tzEdge += e; tzCount++; }
+      if (fy > 0.62) { lowEdge += e; lowCount++; }
+      if (fx < 0.28 || fx > 0.72) { sideEdge += e; sideCount++; }
+    }
+  }
+  const edgeDensity = edgeCount ? edgeSum / edgeCount / 255 : 0;
+  const tzDensity = tzCount ? tzEdge / tzCount / 255 : 0;
+  const lowDensity = lowCount ? lowEdge / lowCount / 255 : 0;
+  const sideDensity = sideCount ? sideEdge / sideCount / 255 : 0;
+
+  const total = Math.max(1, n);
+  const skinRatio = skinCount / total * 100;
+  const hairRatio = hairCount / total * 100;
+  const avgL = skinCount ? sumL / skinCount : 0;
+  const avgA = skinCount ? sumA / skinCount : 0;
+  const avgB = skinCount ? sumB / skinCount : 0;
+  const varL = skinCount ? Math.max(0, sumL2 / skinCount - avgL * avgL) : 0;
+  const stdL = Math.sqrt(varL);
+  const darkRatio = skinCount ? darkCount / skinCount * 100 : 0;
+  const redRatio = skinCount ? redCount / skinCount * 100 : 0;
+  const yellowRatio = skinCount ? yellowCount / skinCount * 100 : 0;
+  const highlightRatio = skinCount ? highlightCount / skinCount * 100 : 0;
+  const whiteRatio = hairCount ? whiteCount / hairCount * 100 : 0;
+
+  if (type === 'hair') {
+    const metrics = {
+      hairRatio: Math.round(clamp(hairRatio)),
+      density: Math.round(clamp(edgeDensity * 150)),
+      oiliness: Math.round(clamp(highlightRatio * 260)),
+      dandruff: Math.round(clamp(whiteRatio * 380)),
+      redness: Math.round(clamp((avgA - 9) * 7 + redRatio * 120)),
+      shine: Math.round(clamp(highlightRatio * 220)),
+      scalpVisible: Math.round(clamp(skinRatio)),
+      breakage: Math.round(clamp(lowDensity * 130)),
+      texture: Math.round(clamp(edgeDensity * 150)),
+      brightness: Math.round(clamp(avgL))
+    };
+    let ok = hairRatio >= 10;
+    let warn = false, note = '';
+    if (!ok) note = 'مو یا کف سر به‌اندازه کافی در کادر نیست. نور طبیعی، بدون فلاش و نزدیک‌تر عکس بگیرید.';
+    else if (metrics.brightness < 25) { warn = true; note = 'عکس تاریک است؛ نور بیشتری لازم است.'; }
+    else if (metrics.scalpVisible > 65) { warn = true; note = 'بیشتر عکس پوست است تا مو؛ کف سر/تارهای مو را در کادر بگیرید.'; }
+    return { ok, warn, note, metrics };
+  }
+
+  const metrics = {
+    skinRatio: Math.round(clamp(skinRatio)),
+    brightness: Math.round(clamp(avgL)),
+    redness: Math.round(clamp((avgA - 10) * 6 + redRatio * 120)),
+    yellowness: Math.round(clamp((avgB - 12) * 5 + yellowRatio * 80)),
+    oiliness: Math.round(clamp(highlightRatio * 280)),
+    hydration: Math.round(clamp(100 - edgeDensity * 145 - (100 - clamp(100 - stdL * 2.2)) * 0.3 + 8)),
+    texture: Math.round(clamp(edgeDensity * 160)),
+    spots: Math.round(clamp(darkRatio * 260 + (100 - clamp(100 - stdL * 2.2)) * 0.35)),
+    evenness: Math.round(clamp(100 - stdL * 2.2)),
+    pores: Math.round(clamp(tzDensity * 140)),
+    acne: Math.round(clamp(redRatio * 160 + darkRatio * 50)),
+    wrinkles: Math.round(clamp(lowDensity * 120 + sideDensity * 40)),
+    darkCircles: Math.round(clamp(15 + 10 * (1 - avgL / 100))),
+    tone: avgL > 65 ? 'روشن' : avgL < 40 ? 'تیره' : 'متعادل'
+  };
+  let ok = skinRatio >= 8;
+  let warn = false, note = '';
+  if (!ok) note = 'پوست/صورت به‌اندازه کافی در کادر نیست. صورت را پر کنید، نور طبیعی بدهید و فلاش را خاموش کنید.';
+  else if (metrics.brightness < 25) { warn = true; note = 'عکس تاریک است؛ رنگ‌ها ممکن است دقیق نباشند.'; }
+  else if (metrics.brightness > 92) { warn = true; note = 'نور بیش از حد/بازتاب زیاد است؛ ممکن است چربی و بافت اشتباه خوانده شود.'; }
+  return { ok, warn, note, metrics };
+}
+
+const IRIS_REFS = [
+  ['white', 245, 245, 245], ['black', 26, 26, 26], ['grey', 95, 95, 95],
+  ['red', 192, 57, 43], ['orange', 230, 126, 34], ['yellow', 212, 177, 6],
+  ['green', 74, 124, 89], ['blue', 52, 101, 164], ['purple', 108, 79, 140],
+  ['pink', 232, 160, 168], ['brown', 110, 78, 50]
+].map((x) => { const L = [0, 0, 0]; rgb2lab(x[1], x[2], x[3], L); return [x[0], L[0], L[1], L[2]]; });
+const _irisLab = [0, 0, 0];
+function nearestIrisColor(r, g, b) {
+  rgb2lab(r, g, b, _irisLab);
+  let best = 'grey', bd = 1e9;
+  for (const c of IRIS_REFS) {
+    const dl = _irisLab[0] - c[1], da = _irisLab[1] - c[2], db = _irisLab[2] - c[3];
+    const dd = dl * dl + da * da + db * db;
+    if (dd < bd) { bd = dd; best = c[0]; }
+  }
+  return best;
+}
+
+function extractIrisFeatures(imgData, w, h) {
+  const gray = new Uint8Array(w * h);
+  for (let i = 0; i < w * h; i++) {
+    const o = i * 4;
+    gray[i] = Math.round(0.299 * imgData[o] + 0.587 * imgData[o + 1] + 0.114 * imgData[o + 2]);
+  }
+  const edges = new Uint8Array(w * h);
+  for (let y = 1; y < h - 1; y++) for (let x = 1; x < w - 1; x++) {
+    const i = y * w + x;
+    const gx = -gray[(y - 1) * w + x - 1] + gray[(y - 1) * w + x + 1] - 2 * gray[y * w + x - 1] + 2 * gray[y * w + x + 1] - gray[(y + 1) * w + x - 1] + gray[(y + 1) * w + x + 1];
+    const gy = -gray[(y - 1) * w + x - 1] - 2 * gray[(y - 1) * w + x] - gray[(y - 1) * w + x + 1] + gray[(y + 1) * w + x - 1] + 2 * gray[(y + 1) * w + x] + gray[(y + 1) * w + x + 1];
+    edges[i] = Math.min(255, Math.sqrt(gx * gx + gy * gy));
+  }
+  let total = 0;
+  for (let i = 0; i < w * h; i++) total += edges[i];
+  const edgeDensity = total / (w * h * 255);
+
+  let radialSum = 0, radialCount = 0;
+  const cx = w / 2, cy = h / 2;
+  for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
+    const dx = x - cx, dy = y - cy, r = Math.sqrt(dx * dx + dy * dy);
+    if (r > Math.min(w, h) * 0.15 && r < Math.min(w, h) * 0.45) {
+      radialSum += edges[y * w + x];
+      radialCount++;
+    }
+  }
+  const radialAvg = radialCount ? radialSum / radialCount / 255 : 0;
+
+  let darkSpots = 0, lightSpots = 0;
+  for (let y = 2; y < h - 2; y += 3) for (let x = 2; x < w - 2; x += 3) {
+    const v = gray[y * w + x];
+    let blockAvg = 0, bc = 0;
+    for (let dy = -3; dy <= 3; dy += 3) for (let dx = -3; dx <= 3; dx += 3) {
+      blockAvg += gray[Math.max(0, Math.min(h - 1, y + dy)) * w + Math.max(0, Math.min(w - 1, x + dx))];
+      bc++;
+    }
+    blockAvg /= bc;
+    if (v < blockAvg - 40) darkSpots++;
+    if (v > blockAvg + 40) lightSpots++;
+  }
+
+  let ringDetect = 0;
+  const midR = Math.min(w, h) * 0.33;
+  let ringPixels = 0, ringEdgeSum = 0;
+  for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
+    const r = Math.sqrt((x - cx) * (x - cx) + (y - cy) * (y - cy));
+    if (r > midR - 3 && r < midR + 3) { ringPixels++; ringEdgeSum += edges[y * w + x]; }
+  }
+  ringDetect = ringPixels ? (ringEdgeSum / ringPixels) / 255 : 0;
+
+  const secLum = new Array(12).fill(0), secSat = new Array(12).fill(0), secDark = new Array(12).fill(0), secCnt = new Array(12).fill(0);
+  const rOut = Math.min(w, h) * 0.48, rIn = Math.min(w, h) * 0.16;
+  for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
+    const dx = x - cx, dy = y - cy, rr = Math.sqrt(dx * dx + dy * dy);
+    if (rr < rIn || rr > rOut) continue;
+    let deg = Math.atan2(dx, -dy) * 180 / Math.PI;
+    if (deg < 0) deg += 360;
+    const si = Math.floor(deg / 30) % 12, o = (y * w + x) * 4;
+    const R = imgData[o], G = imgData[o + 1], B = imgData[o + 2];
+    const lum = 0.299 * R + 0.587 * G + 0.114 * B;
+    secLum[si] += lum;
+    secSat[si] += (Math.max(R, G, B) - Math.min(R, G, B));
+    if (lum < 70) secDark[si]++;
+    secCnt[si]++;
+  }
+  const HRS = ['12', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11'];
+  const sectors = [];
+  for (let k = 0; k < 12; k++) {
+    const cnt = secCnt[k] || 1;
+    sectors.push({ h: HRS[k], lum: Math.round(secLum[k] / cnt), sat: Math.round(secSat[k] / cnt), darkPct: Math.round(secDark[k] / cnt * 100) });
+  }
+  const byLum = sectors.slice().sort((a, b) => a.lum - b.lum);
+  const byDark = sectors.slice().sort((a, b) => b.darkPct - a.darkPct);
+  const bySat = sectors.slice().sort((a, b) => b.sat - a.sat);
+  const clock = '— تیره‌ترین نواحی (ساعت): ' + byLum.slice(0, 3).map((x) => x.h + ' (روشنایی ' + x.lum + '، تیرگی ' + x.darkPct + '%)').join('، ') + '\n' +
+    '— پرتیرگی‌ترین نواحی (ساعت): ' + byDark.slice(0, 3).map((x) => x.h + ' (' + x.darkPct + '% پیکسل تیره)').join('، ') + '\n' +
+    '— سیراب‌رنگ‌ترین نواحی (ساعت): ' + bySat.slice(0, 2).map((x) => x.h + ' (اشباع ' + x.sat + ')').join('، ') + '\n' +
+    '— روشن‌ترین نواحی (ساعت): ' + byLum.slice(-2).reverse().map((x) => x.h + ' (روشنایی ' + x.lum + ')').join('، ');
+  return {
+    edgeDensity: Math.round(edgeDensity * 1000) / 10,
+    radialFibrils: Math.round(radialAvg * 1000) / 10,
+    darkSpots, lightSpots,
+    ringIndicator: Math.round(ringDetect * 1000) / 10,
+    sectors, clock
+  };
+}
+
+function computeIrisMetrics(img) {
+  const max = 360;
+  const sc = Math.min(max / img.width, max / img.height, 1);
+  const cv = document.createElement('canvas');
+  cv.width = Math.max(1, Math.round(img.width * sc));
+  cv.height = Math.max(1, Math.round(img.height * sc));
+  const ctx = cv.getContext('2d', { willReadFrequently: true });
+  ctx.drawImage(img, 0, 0, cv.width, cv.height);
+  const id = ctx.getImageData(0, 0, cv.width, cv.height);
+  whiteBalance(id.data);
+  const d = id.data, w = cv.width, h = cv.height, n = w * h;
+  const counts = { white: 0, black: 0, grey: 0, red: 0, orange: 0, yellow: 0, green: 0, blue: 0, purple: 0, pink: 0, brown: 0 };
+  let sumL = 0, warm = 0;
+  const lab = [0, 0, 0];
+  for (let i = 0; i < n; i++) {
+    const o = i * 4;
+    const r = d[o], g = d[o + 1], b = d[o + 2];
+    rgb2lab(r, g, b, lab);
+    sumL += lab[0];
+    const hue = rgbToHsl(r, g, b)[0];
+    if (hue < 60 || hue > 300) warm++;
+    counts[nearestIrisColor(r, g, b)]++;
+  }
+  const total = Math.max(1, n);
+  const pct = (k) => Math.round(counts[k] / total * 100);
+  const irisRatio = pct('brown') + pct('green') + pct('blue') + pct('grey');
+  const sclera = pct('white');
+  const pupil = pct('black');
+  const skin = pct('red') + pct('pink') + pct('orange');
+  const warmPct = Math.round(warm / total * 100);
+  const feat = extractIrisFeatures(d, w, h);
+  const metrics = {
+    irisRatio, sclera, pupil, skin, warm: warmPct,
+    brown: pct('brown'), green: pct('green'), blue: pct('blue'), grey: pct('grey'),
+    brightness: Math.round(clamp(sumL / total)),
+    edgeDensity: feat.edgeDensity,
+    radialFibrils: feat.radialFibrils,
+    darkSpots: feat.darkSpots,
+    lightSpots: feat.lightSpots,
+    ringIndicator: feat.ringIndicator,
+    sectors: feat.sectors,
+    clock: feat.clock,
+    eye: state.irisEye
+  };
+  let ok = irisRatio >= 8 && sclera >= 3 && pupil >= 2;
+  let warn = false, note = '';
+  if (!ok) note = 'عنبیه/چشم به‌اندازه کافی و واضح در کادر نیست. یک چشم را از روبه‌رو، با نور طبیعی و بدون فلاش بگیرید.';
+  else if (irisRatio < 12) { warn = true; note = 'عنبیه بخش کوچکی از کادر است؛ دوربین را نزدیک‌تر کنید.'; }
+  else if (sclera < 8) { warn = true; note = 'سفیدی چشم کم دیده می‌شود؛ کادر را کمی بازتر بگیرید.'; }
+  else if (skin > 70) { warn = true; note = 'پوست اطراف چشم زیاد است؛ دوربین را کمی نزدیک‌تر کنید.'; }
+  else if (metrics.brightness < 25) { warn = true; note = 'عکس تاریک است؛ نور بیشتری لازم است.'; }
+  return { ok, warn, note, metrics };
+}
+
+const METRIC_LABELS = {
+  skinRatio: 'پوشش پوست', hairRatio: 'پوشش مو', brightness: 'روشنایی', redness: 'قرمزی/حساسیت',
+  yellowness: 'زردی', oiliness: 'چربی', hydration: 'آبرسانی', texture: 'بافت', spots: 'لک و تیرگی',
+  evenness: 'یکنواختی', pores: 'منافذ', acne: 'جوش', wrinkles: 'خطوط ریز', darkCircles: 'تیرگی دور چشم',
+  tone: 'رنگ کلی', density: 'تراکم مو', dandruff: 'شوره', shine: 'درخشندگی', scalpVisible: 'کف سر نمایان',
+  breakage: 'شکنندگی'
+};
+const SKIN_KEYS = ['skinRatio', 'oiliness', 'hydration', 'redness', 'spots', 'texture', 'acne', 'wrinkles', 'evenness', 'pores', 'darkCircles', 'brightness'];
+const HAIR_KEYS = ['hairRatio', 'density', 'oiliness', 'dandruff', 'redness', 'shine', 'scalpVisible', 'breakage', 'brightness'];
+
+function renderMetrics(metrics, type) {
+  const keys = type === 'hair' ? HAIR_KEYS : SKIN_KEYS;
+  let h = '<div class="metrics">';
+  for (const k of keys) {
+    const v = Math.round(clamp(metrics[k]));
+    const label = METRIC_LABELS[k] || k;
+    const gold = k === 'skinRatio' || k === 'hairRatio';
+    h += '<div class="metric"><div class="mt"><span>' + esc(label) + '</span><b>' + v + '%</b></div><div class="bar ' + (gold ? 'gold' : '') + '"><i style="width:' + v + '%"></i></div></div>';
+  }
+  h += '</div><p class="note">📷 تحلیل پیکسلی تقریبی از عکس شما؛ نسخه فشرده برای تحلیل ویژن ارسال شد.</p>';
+  if (metrics.tone) h += '<p class="note">رنگ کلی پوست: <b>' + esc(metrics.tone) + '</b></p>';
+  return h;
+}
+
+function renderIrisMetrics(m) {
+  const rows = [
+    ['پوشش عنبیه', m.irisRatio, true],
+    ['سفیدی چشم', m.sclera, false],
+    ['مردمک', m.pupil, false],
+    ['نشانگر حلقه', m.ringIndicator, false],
+    ['الیاف شعاعی', m.radialFibrils, false],
+    ['چگالی لبه', m.edgeDensity, false]
+  ];
+  let h = '<div class="metrics">';
+  for (const [label, val, gold] of rows) {
+    const v = Math.round(clamp(val));
+    h += '<div class="metric"><div class="mt"><span>' + esc(label) + '</span><b>' + v + '%</b></div><div class="bar ' + (gold ? 'gold' : '') + '"><i style="width:' + v + '%"></i></div></div>';
+  }
+  h += '</div>';
+  h += '<div class="grid2" style="margin:8px 0">' +
+    '<div class="metric"><div class="mt"><span>لکه‌های تیره</span><b>' + Number(m.darkSpots || 0).toLocaleString('fa-IR') + '</b></div></div>' +
+    '<div class="metric"><div class="mt"><span>لکه‌های روشن</span><b>' + Number(m.lightSpots || 0).toLocaleString('fa-IR') + '</b></div></div>' +
+    '</div>';
+  if (m.clock) {
+    h += '<div class="card soft" style="margin:8px 0;box-shadow:none"><h3>🕐 نقشه ساعتی عنبیه</h3><p class="note" style="white-space:pre-line;line-height:2">' + esc(m.clock) + '</p><p class="note">ساعت ۱۲ در بالا و ساعت‌گرد است.</p></div>';
+  }
+  h += '<p class="note">📷 تحلیل پیکسلی تقریبی از عکس شما؛ نسخه فشرده برای تحلیل ویژن ارسال شد.</p>';
+  return h;
+}
+
+/* ================= SUBMIT / POLL ================= */
+async function sendAnalysis(type) {
+  if (!state.local[type]) { toast('اول یک عکس مناسب انتخاب کنید.', 'bad'); return; }
+  await submitAnalysis({
+    type,
+    metrics: state.local[type].metrics,
+    image: state.local[type].image || '',
+    answers: {},
+    profile: collectProfile()
+  }, type === 'skin' ? 'skinRes' : 'hairRes');
+}
+
+async function sendIrisAnalysis() {
+  if (!state.local.iris) { toast('اول یک عکس واضح از چشم انتخاب کنید.', 'bad'); return; }
+  await submitAnalysis({
+    type: 'iris',
+    metrics: state.local.iris.metrics,
+    image: state.local.iris.image || '',
+    answers: {},
+    profile: collectProfile()
+  }, 'irisRes');
+}
+
+async function submitAnalysis(payload, targetId) {
+  if (state.busy) { toast('یک تحلیل در حال انجام است؛ کمی صبر کنید.', 'bad'); return; }
+  if (!state.user) {
+    toast('برای دریافت گزارش، ابتدا وارد حساب شوید.', 'bad');
+    go('home');
+    setTimeout(() => $('authEmail').focus(), 350);
+    return;
+  }
+  state.busy = true;
+  const target = $(targetId);
+  target.innerHTML = '<div class="card loading"><div class="spinner"></div><div class="t">در حال ارسال درخواست...</div><div class="s">تحلیل شما در صف قرار می‌گیرد</div></div>';
+  try {
+    const r = await api('/api/analyze', payload);
+    if (!r.ok) {
+      target.innerHTML = '<div class="card"><div class="error">' + esc(r.error || 'خطا در تحلیل') + '</div></div>';
+      if (r.remaining !== undefined) { state.user.remaining = r.remaining; saveSession(); renderHome(); }
+      state.busy = false;
+      return;
+    }
+    if (r.remaining !== undefined) { state.user.remaining = r.remaining; saveSession(); renderHome(); }
+    await pollJob(r.jobId, target, payload.type);
+  } catch (e) {
+    target.innerHTML = '<div class="card"><div class="error">خطا در ارتباط با سرور. اتصال اینترنت را بررسی کنید.</div></div>';
+    state.busy = false;
+  }
+}
+
+async function pollJob(jobId, target, type) {
+  const started = Date.now();
+  for (let i = 0; i < 140; i++) {
+    const sec = Math.round((Date.now() - started) / 1000);
+    target.innerHTML = '<div class="card loading"><div class="spinner"></div><div class="t">در حال تحلیل ' + (type === 'skin' ? 'پوست' : type === 'iris' ? 'عنبیه' : type === 'hair' ? 'مو' : '') + '...</div><div class="s">' + sec + ' ثانیه — معمولاً ۱۰ تا ۶۰ ثانیه</div></div>';
+    await sleep(2500);
+    let r;
+    try { r = await api('/status/' + encodeURIComponent(jobId)); }
+    catch (e) { continue; }
+    if (!r || !r.ok) {
+      target.innerHTML = '<div class="card"><div class="error">' + esc((r && r.error) || 'وضعیت تحلیل دریافت نشد.') + '</div></div>';
+      state.busy = false;
+      return;
+    }
+    if (r.status === 'completed') {
+      state.busy = false;
+      renderResult(target, r.result || '', r.engine || '', type);
+      refreshMe();
+      return;
+    }
+    if (r.status === 'failed') {
+      state.busy = false;
+      target.innerHTML = '<div class="card"><div class="error">تحلیل انجام نشد. لطفاً دوباره تلاش کنید.</div><button class="btn small ghost" style="margin-top:8px" onclick="sendAnalysis(\'' + type + '\')">تلاش دوباره</button></div>';
+      return;
+    }
+  }
+  state.busy = false;
+  target.innerHTML = '<div class="card"><div class="error">زمان تحلیل طولانی شد. لطفاً دوباره تلاش کنید.</div></div>';
+}
+
+/* ================= RESULT RENDER ================= */
+function renderResult(target, text, engine, type) {
+  state.last[type] = { text, engine };
+  const local = String(engine || '').toLowerCase().includes('local');
+  target.innerHTML = '<div class="card result-card">' +
+    '<div class="ai-tag">' + (local ? '⚡ گزارش محلی' : '🤖 گزارش هوش مصنوعی') +
+    ' <span class="pill ' + (local ? 'gold' : 'ok') + '">' + esc(engine || '') + '</span></div>' +
+    '<div class="md">' + renderMarkdown(text) + '</div>' +
+    '<div class="warn-box" style="margin-top:10px">⚠️ این گزارش مشاوره زیبایی است، نه تشخیص پزشکی. برای علائم شدید، بارداری/شیردهی یا مصرف دارو با پزشک مشورت کنید.</div>' +
+    '<div class="result-actions">' +
+      '<button class="btn small ghost" onclick="downloadLast(\'' + type + '\')">⬇️ ذخیره متن</button>' +
+      '<button class="btn small ghost" onclick="copyLast(\'' + type + '\')">📋 کپی</button>' +
+      '<button class="btn small" onclick="resetAnalysis(\'' + type + '\')">🔄 تحلیل جدید</button>' +
+    '</div></div>';
+}
+
+function renderMarkdown(md) {
+  const inline = (s) => esc(s)
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/`([^`]+)`/g, '<code>$1</code>');
+  const lines = String(md || '').replace(/\r/g, '').split('\n');
+  const out = [];
+  let table = [], listType = null;
+
+  const flushTable = () => {
+    if (!table.length) return;
+    const body = table.filter((r) => !r.every((c) => /^:?-{2,}:?$/.test(c)));
+    if (body.length) {
+      const head = body[0], rest = body.slice(1);
+      out.push('<div class="tbl-wrap"><table><thead><tr>' + head.map((c) => '<th>' + inline(c) + '</th>').join('') + '</tr></thead><tbody>' +
+        rest.map((r) => '<tr>' + r.map((c) => '<td>' + inline(c) + '</td>').join('') + '</tr>').join('') + '</tbody></table></div>');
+    }
+    table = [];
+  };
+  const flushList = () => {
+    if (listType) { out.push('</' + listType + '>'); listType = null; }
+  };
+
+  for (const raw of lines) {
+    const line = raw.trim();
+    if (!line) { flushTable(); flushList(); continue; }
+    if (/^\|.*\|$/.test(line)) {
+      flushList();
+      table.push(line.replace(/^\||\|$/g, '').split('|').map((c) => c.trim()));
+      continue;
+    }
+    flushTable();
+    const hm = /^(#{1,4})\s+(.+)$/.exec(line);
+    if (hm) {
+      flushList();
+      const lvl = Math.min(4, hm[1].length);
+      out.push('<h' + lvl + '>' + inline(hm[2]) + '</h' + lvl + '>');
+      continue;
+    }
+    if (/^>\s?/.test(line)) { flushList(); out.push('<blockquote>' + inline(line.replace(/^>\s?/, '')) + '</blockquote>'); continue; }
+    if (/^[-*]\s+/.test(line)) {
+      if (listType !== 'ul') { flushList(); out.push('<ul>'); listType = 'ul'; }
+      out.push('<li>' + inline(line.replace(/^[-*]\s+/, '')) + '</li>');
+      continue;
+    }
+    if (/^[۰-۹0-9]+[.)]\s+/.test(line)) {
+      if (listType !== 'ol') { flushList(); out.push('<ol>'); listType = 'ol'; }
+      out.push('<li>' + inline(line.replace(/^[۰-۹0-9]+[.)]\s+/, '')) + '</li>');
+      continue;
+    }
+    flushList();
+    out.push('<p>' + inline(line) + '</p>');
+  }
+  flushTable(); flushList();
+  return out.join('\n');
+}
+
+function downloadLast(type) {
+  const x = state.last[type];
+  if (!x) return;
+  const blob = new Blob([x.text], { type: 'text/markdown;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'arya-' + type + '-' + new Date().toISOString().slice(0, 10) + '.md';
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 3000);
+}
+async function copyLast(type) {
+  const x = state.last[type];
+  if (!x) return;
+  try { await navigator.clipboard.writeText(x.text); toast('متن کپی شد.', 'ok'); }
+  catch (e) { toast('کپی نشد؛ از دانلود استفاده کنید.', 'bad'); }
+}
+function resetAnalysis(type) {
+  state.local[type] = null;
+  state.last[type] = null;
+  $(type + 'Preview').classList.remove('on');
+  $(type + 'Up').classList.remove('hidden');
+  $(type + 'Local').innerHTML = '';
+  $(type + 'Send').hidden = true;
+  $(type + 'Res').innerHTML = '';
+  $(type + 'File').value = '';
+}
+
+/* ================= PROFILE ================= */
+function loadProfile() {
+  try { state.profile = JSON.parse(localStorage.getItem('arya_profile') || '{}') || {}; }
+  catch (e) { state.profile = {}; }
+  fillProfile();
+}
+function fillProfile() {
+  const p = state.profile || {};
+  const set = (id, v) => { const el = $(id); if (el) el.value = v == null ? '' : v; };
+  set('profileName', p['نام']);
+  set('profileAge', p['سن']);
+  set('profileSex', p['جنسیت']);
+  set('profilePregnant', p['بارداری/شیردهی']);
+  set('profileSun', p['قرارگیری در آفتاب']);
+  set('profileAllergies', p['آلرژی']);
+  set('profileMeds', p['دارو']);
+  set('profileRoutine', p['روتین فعلی']);
+}
+function saveProfile() {
+  state.profile = collectProfile();
+  try { localStorage.setItem('arya_profile', JSON.stringify(state.profile)); } catch (e) {}
+  toast('پروفایل ذخیره شد.', 'ok');
+}
+function collectProfile() {
+  const p = {};
+  const val = (id) => { const el = $(id); return el ? String(el.value || '').trim() : ''; };
+  if (val('profileName')) p['نام'] = val('profileName');
+  if (val('profileAge')) p['سن'] = val('profileAge');
+  if (val('profileSex')) p['جنسیت'] = val('profileSex');
+  if (val('profilePregnant')) p['بارداری/شیردهی'] = val('profilePregnant');
+  if (val('profileSun')) p['قرارگیری در آفتاب'] = val('profileSun');
+  if (val('profileAllergies')) p['آلرژی'] = val('profileAllergies');
+  if (val('profileMeds')) p['دارو'] = val('profileMeds');
+  if (val('profileRoutine')) p['روتین فعلی'] = val('profileRoutine');
+  return p;
+}
+
+/* ================= SURVEY ================= */
+const QUESTIONS = [
+  { k: 'نوع پوست', opts: ['خشک', 'چرب', 'مختلط', 'نرمال', 'حساس'] },
+  { k: 'چربی در طول روز', opts: ['کم', 'متوسط', 'زیاد'] },
+  { k: 'حساسیت و قرمزی', opts: ['خیر', 'گاهی', 'بله'] },
+  { k: 'جوش و آکنه', opts: ['خیر', 'گاهی', 'بله'] },
+  { k: 'لک و تیرگی', opts: ['خیر', 'کم', 'بله'] },
+  { k: 'چروک و خطوط ریز', opts: ['خیر', 'کم', 'بله'] },
+  { k: 'کم‌آبی و کشیدگی', opts: ['خیر', 'گاهی', 'بله'] },
+  { k: 'منافذ باز', opts: ['خیر', 'کم', 'بله'] },
+  { k: 'نوع مو', opts: ['نرمال', 'خشک', 'چرب', 'مختلط'] },
+  { k: 'شوره یا خارش کف سر', opts: ['خیر', 'گاهی', 'بله'] },
+  { k: 'ریزش مو', opts: ['خیر', 'کم', 'بله'] },
+  { k: 'دغدغه اصلی', opts: ['روشن سازی', 'ضد جوش', 'آبرسانی', 'ضد پیری', 'تقویت مو'] },
+  { k: 'بودجه و ترجیح روتین', opts: ['روتین پایه و اقتصادی', 'روتین تخصصی و کامل', 'پکیج جامع ۳۶۰ درجه'] }
+];
+
+function initSurvey() {
+  if (state.surveyInit) return;
+  state.surveyInit = true;
+  let h = '';
+  QUESTIONS.forEach((q, i) => {
+    h += '<div class="survey-q"><h4><span class="num">' + (i + 1) + '</span>' + esc(q.k) + '</h4><div class="opts">';
+    q.opts.forEach((o) => {
+      h += '<button class="opt" data-q="' + escAttr(q.k) + '" data-v="' + escAttr(o) + '">' + esc(o) + '</button>';
+    });
+    h += '</div></div>';
+  });
+  $('surveyBox').innerHTML = h;
+  $('surveyBox').addEventListener('click', (e) => {
+    const btn = e.target.closest('.opt');
+    if (!btn) return;
+    const q = btn.getAttribute('data-q'), v = btn.getAttribute('data-v');
+    state.survey[q] = v;
+    btn.parentElement.querySelectorAll('.opt').forEach((b) => b.classList.remove('sel'));
+    btn.classList.add('sel');
+    updateSurveyProgress();
+  });
+  updateSurveyProgress();
+}
+
+function updateSurveyProgress() {
+  const n = Object.keys(state.survey).length;
+  $('surveyBar').style.width = (n / QUESTIONS.length * 100) + '%';
+  $('surveyProgress').textContent = n.toLocaleString('fa-IR') + ' از ' + QUESTIONS.length.toLocaleString('fa-IR') + ' پاسخ داده شده';
+  $('surveyBtn').disabled = n < QUESTIONS.length;
+}
+
+function deriveSurveyMetrics() {
+  const s = state.survey;
+  const pick = (k, map, def) => map[s[k]] !== undefined ? map[s[k]] : def;
+  let oil = pick('چربی در طول روز', { 'کم': 25, 'متوسط': 50, 'زیاد': 80 }, 50);
+  if (s['نوع پوست'] === 'چرب') oil = Math.max(oil, 78);
+  if (s['نوع پوست'] === 'خشک') oil = Math.min(oil, 30);
+  const hydration = pick('کم‌آبی و کشیدگی', { 'خیر': 85, 'گاهی': 60, 'بله': 30 }, 60);
+  const redness = pick('حساسیت و قرمزی', { 'خیر': 10, 'گاهی': 45, 'بله': 80 }, 30);
+  const acne = pick('جوش و آکنه', { 'خیر': 10, 'گاهی': 45, 'بله': 80 }, 30);
+  const spots = pick('لک و تیرگی', { 'خیر': 10, 'کم': 40, 'بله': 75 }, 30);
+  const wrinkles = pick('چروک و خطوط ریز', { 'خیر': 10, 'کم': 40, 'بله': 75 }, 30);
+  const pores = pick('منافذ باز', { 'خیر': 10, 'کم': 40, 'بله': 75 }, 30);
+  const density = pick('ریزش مو', { 'خیر': 80, 'کم': 55, 'بله': 30 }, 60);
+  const dandruff = pick('شوره یا خارش کف سر', { 'خیر': 10, 'گاهی': 45, 'بله': 80 }, 20);
+  const hairOil = pick('نوع مو', { 'نرمال': 40, 'خشک': 20, 'چرب': 80, 'مختلط': 55 }, 45);
+  return {
+    oiliness: oil, hydration, redness, acne, spots, wrinkles, pores,
+    texture: Math.round(Math.max(wrinkles, acne * 0.5)),
+    evenness: Math.round(clamp(100 - spots * 0.6)),
+    brightness: 60, skinRatio: 55,
+    density, dandruff, hairRatio: 55, scalpVisible: 30, breakage: 100 - density, shine: 100 - hairOil
+  };
+}
+
+async function calcSurvey() {
+  if (Object.keys(state.survey).length < QUESTIONS.length) { toast('همه سؤال‌ها را پاسخ دهید.', 'bad'); return; }
+  const metrics = deriveSurveyMetrics();
+  await submitAnalysis({
+    type: 'survey',
+    metrics,
+    answers: { ...state.survey },
+    profile: collectProfile()
+  }, 'surveyRes');
+}
+
+/* ================= PRODUCTS ================= */
+async function loadProducts() {
+  try {
+    const r = await api('/api/products');
+    if (r && r.ok && Array.isArray(r.products) && r.products.length) {
+      state.products = r.products;
+      state.productMeta = r.meta || null;
+    }
+  } catch (e) {}
+  try {
+    const local = await fetch('./data/products.json', { cache: 'no-store' }).then((x) => x.json());
+    if (local && Array.isArray(local.products)) {
+      state.fullProducts = local.products;
+      if (!state.products.length) state.products = local.products;
+      state.productMeta = state.productMeta || local;
+    }
+  } catch (e) {}
+  renderProducts();
+}
+
+const TAG_LABELS = {
+  acne: 'ضدجوش', brightening: 'روشن‌کننده', hydration: 'آبرسان', 'anti-aging': 'ضدپیری',
+  'oil-control': 'کنترل چربی', soothing: 'تسکین‌دهنده', hair: 'مو', eyelash: 'مژه', eyebrow: 'ابرو',
+  growth: 'رشد', 'hair-growth': 'رشد مو', strengthening: 'تقویت', argan: 'آرگان', nails: 'ناخن',
+  vegan: 'وگان', nano: 'نانو', 'vitamin-c': 'ویتامین C', antioxidant: 'آنتی‌اکسیدان',
+  'anti-pigmentation': 'ضدلک', cleanser: 'پاک‌کننده', exfoliant: 'لایه‌بردار',
+  'makeup-remover': 'پاک‌کننده آرایش', toner: 'تونر', conditioner: 'نرم‌کننده'
+};
+const SKIN_LABELS = { all: 'همه پوست‌ها', oily: 'چرب', dry: 'خشک', combination: 'مختلط', sensitive: 'حساس', normal: 'نرمال', hair: 'مو' };
+
+function categories() {
+  const m = new Map();
+  for (const p of state.products) m.set(p.category, (m.get(p.category) || 0) + 1);
+  return [...m.entries()];
+}
+
+function renderProducts() {
+  const chips = $('productChips');
+  if (chips) {
+    const cats = categories();
+    chips.innerHTML = '<button class="chip ' + (state.filter === 'all' ? 'on' : '') + '" onclick="setFilter(\'all\')">همه (' + state.products.length.toLocaleString('fa-IR') + ')</button>' +
+      cats.map(([c, n]) => '<button class="chip ' + (state.filter === c ? 'on' : '') + '" onclick="setFilter(\'' + escAttr(c) + '\')">' + esc(c) + ' (' + n.toLocaleString('fa-IR') + ')</button>').join('');
+  }
+  const q = ($('productSearch') && $('productSearch').value || '').trim();
+  let list = state.products.slice();
+  if (state.filter !== 'all') list = list.filter((p) => p.category === state.filter);
+  if (q) list = list.filter((p) => (p.name + ' ' + p.category + ' ' + (p.tags || []).join(' ')).includes(q));
+  const el = $('productList');
+  if (!el) return;
+  if (!list.length) { el.innerHTML = '<div class="empty">محصولی با این فیلتر پیدا نشد.</div>'; return; }
+  el.innerHTML = list.map((p) => {
+    const tags = (p.tags || []).slice(0, 4).map((t) => '<span class="tag">' + esc(TAG_LABELS[t] || t) + '</span>').join('');
+    return '<button class="p-card" onclick="showProduct(\'' + escAttr(p.id) + '\')">' +
+      '<img src="' + escAttr(p.image) + '" alt="' + escAttr(p.name) + '" loading="lazy" onerror="this.style.display=\'none\'">' +
+      '<span class="p-info"><h4>' + esc(p.name) + '</h4><span class="p-cat">' + esc(p.category) + '</span>' +
+      '<div class="p-price">' + fmtT(p.price_toman) + ' تومان</div><div class="p-tags">' + tags + '</div></span></button>';
+  }).join('');
+}
+
+function setFilter(c) { state.filter = c; renderProducts(); }
+
+function showProduct(id) {
+  const p = state.fullProducts.find((x) => String(x.id) === String(id)) || state.products.find((x) => String(x.id) === String(id));
+  if (!p) return;
+  const tags = (p.tags || []).map((t) => '<span class="tag">' + esc(TAG_LABELS[t] || t) + '</span>').join(' ');
+  const skins = (p.skin_types || []).map((s) => SKIN_LABELS[s] || s).join('، ');
+  const highlights = (p.highlights || []).length
+    ? '<h3>ویژگی‌ها</h3><ul>' + p.highlights.map((x) => '<li>' + esc(x) + '</li>').join('') + '</ul>'
+    : '';
+  const specs = p.specs || {};
+  const specRows = [
+    ['نوع', specs.type], ['بافت', specs.texture], ['حجم', specs.volume], ['سن', specs.age],
+    ['مناسب پوست', specs.skin], ['ناحیه', specs.area]
+  ].filter((x) => x[1]).map((x) => '<b>' + esc(x[0]) + '</b><span>' + esc(x[1]) + '</span>').join('');
+  $('modalBody').innerHTML = '<button class="x" onclick="closeModal()">×</button>' +
+    '<h2 style="color:var(--pd);font-size:.95rem;line-height:1.7">' + esc(p.name) + '</h2>' +
+    '<div class="row" style="margin:6px 0"><span class="pill">' + esc(p.category) + '</span>' + tags + '</div>' +
+    (p.image ? '<img class="hero-img" src="' + escAttr(p.image) + '" alt="' + escAttr(p.name) + '" onerror="this.style.display=\'none\'">' : '') +
+    '<p style="font-size:1.05rem;font-weight:900;color:var(--p)">' + fmtT(p.price_toman) + ' تومان</p>' +
+    (skins ? '<p class="note">مناسب: ' + esc(skins) + '</p>' : '') +
+    (specRows ? '<div class="spec">' + specRows + '</div>' : '') +
+    highlights +
+    (p.benefits ? '<h3>معرفی کوتاه</h3><p class="note">' + esc(p.benefits) + '</p>' : '') +
+    (p.ingredients ? '<h3>ترکیبات</h3><p class="note">' + esc(p.ingredients.slice(0, 900)) + '</p>' : '') +
+    (p.usage ? '<h3>روش مصرف</h3><p class="note">' + esc(p.usage.slice(0, 900)) + '</p>' : '') +
+    (p.warnings ? '<div class="warn-box" style="margin-top:10px">⚠️ ' + esc(p.warnings.slice(0, 700)) + '</div>' : '') +
+    '<div class="row" style="margin-top:14px"><a class="btn" href="' + escAttr(p.url) + '" target="_blank" rel="noopener">🛒 مشاهده در سایت آریا</a></div>' +
+    '<p class="note" style="margin-top:8px">قیمت مصرف‌کننده از aryamlm.ir؛ ممکن است تغییر کند.</p>';
+  $('modal').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal() {
+  $('modal').classList.remove('show');
+  document.body.style.overflow = '';
+}
+
+/* ================= DASHBOARD ================= */
+function renderDash(history) {
+  const logged = !!state.user;
+  $('dashNotLogged').hidden = logged;
+  $('dashLogged').hidden = !logged;
+  if (!logged) return;
+  $('dashEmail').textContent = state.user.email || '';
+  $('dashRole').textContent = state.user.role === 'admin' ? 'مدیر' : 'کاربر';
+  $('dashEngine').textContent = state.health && state.health.ai_configured ? 'AI فعال' : 'تحلیل محلی';
+  const remaining = Number(state.user.remaining || 0);
+  const limit = Number(state.user.limit || 10);
+  const pct = limit ? Math.round(remaining / limit * 100) : 0;
+  $('dashBar').style.width = pct + '%';
+  $('dashQuota').textContent = remaining + ' از ' + limit + ' تحلیل امروز باقی مانده' + (state.user.used != null ? ' — امروز ' + state.user.used + ' استفاده شده' : '');
+  if (history) renderHistory(history);
+  $('adminCard').hidden = state.user.role !== 'admin';
+}
+
+const TYPE_LABELS = { skin: 'تحلیل پوست', iris: 'تحلیل عنبیه', hair: 'تحلیل مو', survey: 'پرسش‌نامه' };
+function renderHistory(rows) {
+  const el = $('dashHistory');
+  if (!el) return;
+  if (!rows || !rows.length) { el.innerHTML = '<p class="note">هنوز تحلیلی انجام نشده است.</p>'; return; }
+  el.innerHTML = rows.map((x) => {
+    const date = (() => { try { return new Date(x.created_at).toLocaleString('fa-IR'); } catch (e) { return x.created_at || ''; } })();
+    const status = x.status === 'completed' ? 'تکمیل' : x.status === 'failed' ? 'ناموفق' : 'در حال انجام';
+      return '<div class="hist"><span class="hi">' + (x.type === 'skin' ? '🧖‍♀️' : x.type === 'iris' ? '👁️' : x.type === 'hair' ? '💇‍♀️' : '📋') + '</span>' +
+      '<span class="hm"><b>' + esc(TYPE_LABELS[x.type] || x.type) + ' — ' + esc(status) + '</b><span>' + esc(date) + (x.engine ? ' · ' + esc(x.engine) : '') + '</span></span>' +
+      '<button onclick="viewJob(\'' + escAttr(x.id) + '\')">مشاهده</button></div>';
+  }).join('');
+}
+
+async function viewJob(id) {
+  const r = await api('/status/' + encodeURIComponent(id));
+  if (!r || !r.ok) { toast('تحلیل پیدا نشد.', 'bad'); return; }
+  if (r.status !== 'completed') { toast('این تحلیل کامل نشده است.', 'bad'); return; }
+  $('modalBody').innerHTML = '<button class="x" onclick="closeModal()">×</button>' +
+    '<h2 style="color:var(--pd);font-size:.9rem">' + esc(TYPE_LABELS[r.type] || r.type) + '</h2>' +
+    '<div class="md">' + renderMarkdown(r.result || '') + '</div>';
+  $('modal').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+const ADM_STATUS = { pending: 'در انتظار', approved: 'تأییدشده', blocked: 'مسدود' };
+const ADM_STATUS_CLS = { pending: 'gold', approved: 'ok', blocked: 'bad' };
+function admDate(s) { try { return new Date(s).toLocaleString('fa-IR'); } catch (e) { return s || ''; } }
+
+function admTab(tab, el) {
+  document.querySelectorAll('#screen-admin .tab').forEach((t) => t.classList.remove('active'));
+  if (el) el.classList.add('active');
+  ['users', 'jobs', 'feedback', 'settings'].forEach((t) => {
+    const pane = $('admPane-' + t);
+    if (pane) pane.classList.toggle('hidden', t !== tab);
+  });
+  state.admin.tab = tab;
+  if (tab === 'users') renderAdminUsers();
+  if (tab === 'jobs') renderAdminJobs();
+  if (tab === 'feedback') renderAdminFeedback();
+  if (tab === 'settings') renderAdminSettings();
+}
+
+async function loadAdminAll() {
+  if (!isAdminUser()) { toast('دسترسی مدیر لازم است.', 'bad'); go('home'); return; }
+  try {
+    const [o, u, j, f, s] = await Promise.all([
+      api('/api/admin/overview'), api('/api/admin/users'), api('/api/admin/jobs?limit=200'),
+      api('/api/admin/feedback'), api('/api/admin/settings')
+    ]);
+    if (o && o.ok) state.admin.overview = o;
+    if (u && u.ok) state.admin.users = u.users || [];
+    if (j && j.ok) state.admin.jobs = j.jobs || [];
+    if (f && f.ok) state.admin.feedback = f.feedback || [];
+    if (s && s.ok) state.admin.settings = s;
+    renderAdminOverview();
+    renderAdminUsers();
+    renderAdminJobs();
+    renderAdminFeedback();
+    renderAdminSettings();
+  } catch (e) {
+    toast('خطا در بارگذاری پنل مدیر.', 'bad');
+  }
+}
+
+function renderAdminOverview() {
+  const o = state.admin.overview;
+  if (!o) return;
+  const s = o.stats || {};
+  $('admStats').innerHTML =
+    '<div class="stat"><b>' + fmtT(s.users || 0) + '</b><span>کاربر</span></div>' +
+    '<div class="stat"><b>' + fmtT(s.pending || 0) + '</b><span>در انتظار</span></div>' +
+    '<div class="stat"><b>' + fmtT(s.today || 0) + '</b><span>امروز</span></div>' +
+    '<div class="stat"><b>' + fmtT(s.completed || 0) + '</b><span>تحلیل کامل</span></div>' +
+    '<div class="stat"><b>' + fmtT(s.failed || 0) + '</b><span>ناموفق</span></div>' +
+    '<div class="stat"><b>' + fmtT(o.daily_limit || 10) + '</b><span>سهمیه پیش‌فرض</span></div>';
+  $('admAI').textContent = o.ai && o.ai.configured ? 'AI: ' + o.ai.model : 'AI غیرفعال';
+  $('admCatalog').textContent = 'کاتالوگ: ' + fmtT((o.catalog && o.catalog.count) || 0) + ' محصول';
+  $('admQueue').textContent = o.queue ? 'صف: فعال' : 'صف: غیرفعال';
+}
+
+function renderAdminUsers() {
+  const el = $('admUserList');
+  if (!el) return;
+  const q = String(($('admUserSearch') && $('admUserSearch').value) || '').trim().toLowerCase();
+  const st = ($('admUserStatus') && $('admUserStatus').value) || '';
+  let list = state.admin.users.slice();
+  if (q) list = list.filter((u) => String(u.email || '').toLowerCase().includes(q));
+  if (st) list = list.filter((u) => u.status === st);
+  if (!list.length) { el.innerHTML = '<div class="card"><p class="note">کاربری با این فیلتر پیدا نشد.</p></div>'; return; }
+  el.innerHTML = list.map((u) => {
+    const status = ADM_STATUS[u.status] || u.status;
+    const cls = ADM_STATUS_CLS[u.status] || '';
+    const act = u.status === 'approved'
+      ? '<button class="danger" onclick="adminApprove(\'' + escAttr(u.email) + '\',\'blocked\')">مسدود</button>'
+      : '<button class="ok" onclick="adminApprove(\'' + escAttr(u.email) + '\',\'approved\')">تأیید</button>';
+    return '<div class="adm-item"><div class="top"><b>' + esc(u.email) + '</b><span class="pill ' + cls + '">' + esc(status) + '</span></div>' +
+      '<div class="meta">' + esc(u.role === 'admin' ? 'مدیر' : 'کاربر') + ' · سهمیه: ' + esc(u.daily_limit || 'پیش‌فرض') + ' · عضویت: ' + esc(admDate(u.created_at)) + '</div>' +
+      '<div class="adm-actions">' + act +
+      '<button class="gold" onclick="adminLimit(\'' + escAttr(u.email) + '\')">سهمیه</button>' +
+      '<button onclick="copyEmail(\'' + escAttr(u.email) + '\')">کپی ایمیل</button></div></div>';
+  }).join('');
+}
+
+async function loadAdminJobs() {
+  const r = await api('/api/admin/jobs?limit=200');
+  if (r && r.ok) state.admin.jobs = r.jobs || [];
+  renderAdminJobs();
+}
+
+function renderAdminJobs() {
+  const el = $('admJobList');
+  if (!el) return;
+  const type = ($('admJobType') && $('admJobType').value) || '';
+  const status = ($('admJobStatus') && $('admJobStatus').value) || '';
+  const q = String(($('admJobSearch') && $('admJobSearch').value) || '').trim().toLowerCase();
+  let list = state.admin.jobs.slice();
+  if (type) list = list.filter((x) => x.type === type);
+  if (status) list = list.filter((x) => x.status === status);
+  if (q) list = list.filter((x) => String(x.email || '').toLowerCase().includes(q));
+  if (!list.length) { el.innerHTML = '<div class="card"><p class="note">تحلیلی با این فیلتر پیدا نشد.</p></div>'; return; }
+  el.innerHTML = list.map((x) => {
+    const st = x.status === 'completed' ? 'تکمیل' : x.status === 'failed' ? 'ناموفق' : x.status === 'processing' ? 'در حال پردازش' : 'در صف';
+    const cls = x.status === 'completed' ? 'ok' : x.status === 'failed' ? 'bad' : 'gold';
+    return '<div class="adm-item"><div class="top"><b>' + esc(TYPE_LABELS[x.type] || x.type) + ' — ' + esc(x.email || '—') + '</b><span class="pill ' + cls + '">' + esc(st) + '</span></div>' +
+      '<div class="meta">' + esc(admDate(x.created_at)) + ' · ' + esc(x.engine || '—') + (x.has_image ? ' · 👁️ ویژن' : ' · بدون تصویر') + '</div>' +
+      '<div class="prev">' + esc(String(x.preview || '').replace(/\n/g, ' ')) + '</div>' +
+      '<div class="adm-actions"><button onclick="viewJob(\'' + escAttr(x.id) + '\')">مشاهده</button>' +
+      '<button class="gold" onclick="adminRetryJob(\'' + escAttr(x.id) + '\')">تلاش دوباره</button>' +
+      '<button class="danger" onclick="adminDeleteJob(\'' + escAttr(x.id) + '\')">حذف</button></div></div>';
+  }).join('');
+}
+
+function renderAdminFeedback() {
+  const el = $('admFeedbackList');
+  if (!el) return;
+  const list = state.admin.feedback;
+  if (!list.length) { el.innerHTML = '<div class="card"><p class="note">هنوز بازخوردی ثبت نشده است.</p></div>'; return; }
+  el.innerHTML = list.map((f) => {
+    const r = clamp(f.rating, 1, 5);
+    const stars = '★'.repeat(r) + '☆'.repeat(5 - r);
+    return '<div class="adm-item"><div class="top"><b>' + esc(f.email || '—') + '</b><span class="rating">' + stars + '</span></div>' +
+      '<div class="meta">' + esc(admDate(f.created_at)) + ' · تحلیل: ' + esc(f.job_id || '—') + '</div>' +
+      (f.note ? '<div class="prev">' + esc(f.note) + '</div>' : '') + '</div>';
+  }).join('');
+}
+
+function renderAdminSettings() {
+  const s = state.admin.settings;
+  if (!s) return;
+  if ($('admDailyLimit')) $('admDailyLimit').value = String(s.daily_limit || 10);
+  if ($('admServiceInfo')) {
+    $('admServiceInfo').textContent =
+      'AI: ' + (s.ai && s.ai.configured ? s.ai.provider + ' / ' + s.ai.model : 'غیرفعال') +
+      ' · صف: ' + (s.queue ? 'فعال' : 'غیرفعال') +
+      ' · کاتالوگ: ' + fmtT(s.catalog_count || 0) + ' محصول' +
+      ' · نسخه: ' + (s.version || '—');
+  }
+}
+
+async function saveAdminSettings() {
+  const n = Number($('admDailyLimit') && $('admDailyLimit').value);
+  if (!Number.isFinite(n) || n < 1 || n > 100) { toast('عدد بین ۱ تا ۱۰۰ وارد کنید.', 'bad'); return; }
+  const r = await api('/api/admin/settings', { daily_limit: n });
+  if (r && r.ok) { toast('تنظیمات ذخیره شد.', 'ok'); if ($('admSettingsMsg')) $('admSettingsMsg').textContent = 'سهمیه پیش‌فرض: ' + n; loadAdminAll(); }
+  else toast((r && r.error) || 'خطا', 'bad');
+}
+
+async function adminApprove(email, status) {
+  const r = await api('/api/admin/approve', { email, status });
+  if (r && r.ok) { toast('وضعیت کاربر به‌روز شد.', 'ok'); loadAdminAll(); }
+  else toast((r && r.error) || 'خطا', 'bad');
+}
+
+async function adminLimit(email) {
+  const v = prompt('سهمیه روزانه جدید برای ' + email + ' (۱ تا ۱۰۰):', '10');
+  if (v == null) return;
+  const n = Number(v);
+  if (!Number.isFinite(n) || n < 1 || n > 100) { toast('عدد معتبر وارد کنید.', 'bad'); return; }
+  const r = await api('/api/admin/limit', { email, limit: n });
+  if (r && r.ok) { toast('سهمیه ذخیره شد.', 'ok'); loadAdminAll(); }
+  else toast((r && r.error) || 'خطا', 'bad');
+}
+
+async function adminRetryJob(id) {
+  const r = await api('/api/admin/job', { id, action: 'retry' });
+  if (r && r.ok) { toast('تحلیل دوباره در صف قرار گرفت.', 'ok'); setTimeout(loadAdminJobs, 1500); }
+  else toast((r && r.error) || 'خطا', 'bad');
+}
+
+async function adminDeleteJob(id) {
+  if (!confirm('این تحلیل حذف شود؟')) return;
+  const r = await api('/api/admin/job', { id, action: 'delete' });
+  if (r && r.ok) { toast('تحلیل حذف شد.', 'ok'); loadAdminAll(); }
+  else toast((r && r.error) || 'خطا', 'bad');
+}
+
+async function copyEmail(email) {
+  try { await navigator.clipboard.writeText(email); toast('ایمیل کپی شد.', 'ok'); }
+  catch (e) { toast('کپی نشد.', 'bad'); }
+}
+
+/* ================= INIT ================= */
+function bindStatic() {
+  $('skinFile').addEventListener('change', () => handleImage('skin'));
+  $('hairFile').addEventListener('change', () => handleImage('hair'));
+  $('skinUp').addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') $('skinFile').click(); });
+  $('hairUp').addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') $('hairFile').click(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+}
+
+async function init() {
+  loadProfile();
+  loadSession();
+  updAuthUI();
+  initSurvey();
+  bindStatic();
+  renderHome();
+  renderDash();
+  await loadProducts();
+  await probeHealth();
+  if (state.user) await refreshMe();
+  if (location.hash === '#admin' && state.user && state.user.role === 'admin') go('admin');
+  if ('serviceWorker' in navigator && location.protocol === 'https:') {
+    navigator.serviceWorker.register('./sw.js').catch(() => {});
+  }
+}
+
+/* expose handlers used by inline attributes */
+Object.assign(window, {
+  go, authTab, authSubmit, sendAnalysis, sendIrisAnalysis, setEye, handleIrisImage,
+  resetAnalysis, downloadLast, copyLast, calcSurvey, setFilter, showProduct, closeModal,
+  saveProfile, logout, refreshMe, viewJob, adminApprove, adminLimit, adminRetryJob,
+  adminDeleteJob, copyEmail, admTab, renderAdminUsers, renderAdminJobs, renderAdminFeedback,
+  saveAdminSettings, handleImage, renderProducts
+});
+
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>

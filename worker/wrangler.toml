@@ -1,0 +1,37 @@
+name = "arya-api"
+main = "src/index.js"
+compatibility_date = "2026-09-01"
+compatibility_flags = ["nodejs_compat"]
+workers_dev = true
+observability = { enabled = true }
+
+[[rules]]
+type = "Text"
+globs = ["**/*.html"]
+fallthrough = true
+
+[vars]
+AI_PROVIDER = "deepseek"
+AI_BASE_URL = "https://api.deepseek.com"
+AI_MODEL = "deepseek-flash"
+DAILY_LIMIT = "10"
+APP_NAME = "مشاور زیبایی آریا"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "arya-app-db"
+database_id = "5a4cf38f-fb45-4bf1-af0b-8e045758a4ce"
+
+[[kv_namespaces]]
+binding = "CACHE"
+id = "bf10c19e7a32477390d7f853a351a053"
+
+[[queues.producers]]
+binding = "AI_QUEUE"
+queue = "arya-ai"
+
+[[queues.consumers]]
+queue = "arya-ai"
+max_batch_size = 1
+max_batch_timeout = 5
+max_retries = 2
