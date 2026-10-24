@@ -2,8 +2,9 @@
 // D1 for users/sessions/jobs, KV for rate limiting, Queues for AI jobs.
 import { CATALOG, CATALOG_META } from './catalog.js';
 import ADMIN_HTML from './admin.html';
+import { IRIS_SYSTEM_PROMPT } from './iris-prompt.js';
 
-const VERSION = '2026-10-24-v2';
+const VERSION = '2026-10-24-v4';
 const TOKEN_TTL_DAYS = 30;
 const SESSION_CLEAN_EVERY = 20; // approximate
 
@@ -330,6 +331,42 @@ const SYSTEM_PROMPT = `تو «مشاور زیبایی آریا» هستی؛ مت
 13) همه بخش‌ها را کامل و به ترتیب بنویس؛ هیچ بخشی را حذف نکن و در نیمهٔ جمله رها نکن.
 14) اگر داده‌های پیکسلی با پاسخ‌های پرسش‌نامه تناقض داشت، هر دو را ذکر کن و با احتیاط جمع‌بندی کن.
 15) بخش دوم را فقط به‌عنوان برداشت احتمالی از نشانه‌های ظاهری بنویس، نه تشخیص روان‌شناختی.`;
+
+/* ---------------- prompt registry (قابل ویرایش از پنل مدیر) ---------------- */
+const PROMPT_LABELS = { iris: 'تحلیل عنبیه', skin: 'تحلیل پوست', hair: 'تحلیل مو', survey: 'پرسش‌نامه' };
+const PROMPT_TYPES = Object.keys(PROMPT_LABELS);
+function defaultPrompt(type) { return type === 'iris' ? IRIS_SYSTEM_PROMPT : SYSTEM_PROMPT; }
+function normalizePromptType(t) { return PROMPT_TYPES.includes(t) ? t : 'iris'; }
+const PROMPT_KEY = (type) => 'prompt:' + type;
+
+/* پرامپت فعال هر بخش: مقدار ذخیره‌شدهٔ مدیر، وگرنه پیش‌فرض کد */
+async function getPrompt(env, type) {
+  const t = normalizePromptType(type);
+  try {
+    const row = await env.DB.prepare('SELECT value FROM settings WHERE key = ?').bind(PROMPT_KEY(t)).first();
+    if (row && typeof row.value === 'string' && row.value.trim().length >= 200) return row.value;
+  } catch (e) {}
+  return defaultPrompt(t);
+}
+
+/* وضعیت هر بخش: پیش‌فرض یا ویرایش‌شده */
+async function promptStatus(env) {
+  const out = {};
+  for (const t of PROMPT_TYPES) {
+    out[t] = { label: PROMPT_LABELS[t], customized: false, length: defaultPrompt(t).length, updated_at: null };
+  }
+  try {
+    const rows = await env.DB.prepare("SELECT key, value, updated_at FROM settings WHERE key LIKE 'prompt:%'").all();
+    for (const r of rows.results || []) {
+      const t = String(r.key || '').slice(7);
+      if (!out[t]) continue;
+      out[t].customized = true;
+      out[t].length = String(r.value || '').length;
+      out[t].updated_at = r.updated_at || null;
+    }
+  } catch (e) {}
+  return out;
+}
 
 function userPrompt(input, hasImage) {
   const typeLabel = input.type === 'iris' ? 'تحلیل عنبیه (نشانه‌ها و نقشه ۱۲ ساعتی)' : input.type === 'skin' ? 'تحلیل پوست' : input.type === 'hair' ? 'تحلیل مو' : 'پرسش‌نامه پوست و مو';
@@ -669,10 +706,12 @@ async function processJob(env, jobId) {
   const key = aiKey(env);
   if (key) {
     try {
-      text = await callAI(env, SYSTEM_PROMPT, userPrompt(input, !!imageUrl), imageUrl);
+      // عنبیه پرامپت اختصاصی خودش را دارد؛ پوست/مو/پرسش‌نامه از SYSTEM_PROMPT استفاده می‌کنند
+      const sysPrompt = await getPrompt(env, input.type);
+      text = await callAI(env, sysPrompt, userPrompt(input, !!imageUrl), imageUrl);
       engine = aiConfig(env).provider + ':' + aiConfig(env).model;
       if (!isPersianEnough(text)) {
-        text = await callAI(env, SYSTEM_PROMPT + '\n\n⚠️ پاسخ قبلی فارسی نبود. این بار فقط فارسی بنویس.', userPrompt(input, !!imageUrl), imageUrl);
+        text = await callAI(env, sysPrompt + '\n\n⚠️ پاسخ قبلی فارسی نبود. این بار فقط فارسی بنویس.', userPrompt(input, !!imageUrl), imageUrl);
       }
     } catch (e) {
       text = '';
@@ -977,6 +1016,49 @@ async function handleAdmin(req, env, ctx, cors, action) {
     return json({ ok: true, feedback: rows.results || [] }, 200, cors);
   }
 
+  if (action === 'prompts') {
+    const type = normalizePromptType(new URL(req.url).searchParams.get('type') || 'iris');
+    let saved = '';
+    try {
+      const row = await env.DB.prepare('SELECT value FROM settings WHERE key = ?').bind(PROMPT_KEY(type)).first();
+      if (row && row.value) saved = String(row.value);
+    } catch (e) {}
+    return json({
+      ok: true,
+      type,
+      label: PROMPT_LABELS[type],
+      text: saved || defaultPrompt(type),
+      default_text: defaultPrompt(type),
+      customized: !!saved,
+      types: await promptStatus(env),
+    }, 200, cors);
+  }
+
+  if (action === 'prompt_save') {
+    const type = normalizePromptType(body && body.type);
+    const raw = typeof (body && body.text) === 'string' ? body.text : '';
+    const text = raw.replace(/\r\n/g, '\n').trim();
+    if (text.length < 200) return json({ ok: false, error: 'متن پرامپت خیلی کوتاه است (حداقل ۲۰۰ کاراکتر).' }, 400, cors);
+    if (text.length > 40000) return json({ ok: false, error: 'متن پرامپت بیش از حد بلند است (حداکثر ۴۰٬۰۰۰ کاراکتر).' }, 413, cors);
+    if (text === defaultPrompt(type).trim()) {
+      await env.DB.prepare('DELETE FROM settings WHERE key = ?').bind(PROMPT_KEY(type)).run();
+      await logEvent(env, null, 'admin_prompt_save', { type, length: text.length, mode: 'equals_default' });
+      return json({ ok: true, type, customized: false, length: text.length, message: 'متن برابر پیش‌فرض بود؛ به پیش‌فرض برگشت.' }, 200, cors);
+    }
+    await env.DB.prepare(
+      'INSERT INTO settings (key, value, updated_at) VALUES (?,?,?) ON CONFLICT(key) DO UPDATE SET value=excluded.value, updated_at=excluded.updated_at'
+    ).bind(PROMPT_KEY(type), text, nowIso()).run();
+    await logEvent(env, null, 'admin_prompt_save', { type, length: text.length });
+    return json({ ok: true, type, customized: true, length: text.length, types: await promptStatus(env) }, 200, cors);
+  }
+
+  if (action === 'prompt_reset') {
+    const type = normalizePromptType(body && body.type);
+    await env.DB.prepare('DELETE FROM settings WHERE key = ?').bind(PROMPT_KEY(type)).run();
+    await logEvent(env, null, 'admin_prompt_reset', { type });
+    return json({ ok: true, type, customized: false, text: defaultPrompt(type), types: await promptStatus(env) }, 200, cors);
+  }
+
   if (action === 'settings') {
     if (req.method === 'GET') {
       let dailyLimit = Number(env.DAILY_LIMIT || 10);
@@ -1070,6 +1152,9 @@ export default {
       if (u.pathname === '/api/admin/job' && req.method === 'POST') return await handleAdmin(req, env, ctx, cors, 'job');
       if (u.pathname === '/api/admin/feedback' && req.method === 'GET') return await handleAdmin(req, env, ctx, cors, 'feedback');
       if (u.pathname === '/api/admin/settings' && (req.method === 'GET' || req.method === 'POST')) return await handleAdmin(req, env, ctx, cors, 'settings');
+      if (u.pathname === '/api/admin/prompts' && req.method === 'GET') return await handleAdmin(req, env, ctx, cors, 'prompts');
+      if (u.pathname === '/api/admin/prompt/save' && req.method === 'POST') return await handleAdmin(req, env, ctx, cors, 'prompt_save');
+      if (u.pathname === '/api/admin/prompt/reset' && req.method === 'POST') return await handleAdmin(req, env, ctx, cors, 'prompt_reset');
       return json({ ok: false, error: 'مسیر یافت نشد.' }, 404, cors);
     } catch (e) {
       console.error('arya-api error', e && e.stack || e);

@@ -122,6 +122,7 @@ input:focus,select:focus{border-color:var(--pl);box-shadow:0 0 0 4px rgba(178,91
       <button class="tab" data-tab="jobs">تحلیل‌ها</button>
       <button class="tab" data-tab="feedback">بازخورد</button>
       <button class="tab" data-tab="settings">تنظیمات</button>
+      <button class="tab" data-tab="prompts">پرامپت‌ها</button>
     </div>
 
     <section id="pane-users" class="pane active">
@@ -177,6 +178,33 @@ input:focus,select:focus{border-color:var(--pl);box-shadow:0 0 0 4px rgba(178,91
         <p id="settingsMsg" class="note" style="margin-top:7px"></p>
         <h3 style="margin-top:14px;font-size:.85rem;color:var(--pd)">وضعیت سرویس</h3>
         <p id="serviceInfo" class="note" style="margin-top:4px"></p>
+      </div>
+    </section>
+
+    <section id="pane-prompts" class="pane">
+      <div class="card">
+        <h2>📝 پرامپت‌های تحلیل</h2>
+        <p class="note">متن پرامپت هر بخش را می‌توانی ویرایش کنی یا کلاً با متن تازه عوض کنی. ذخیره بلافاصله روی تحلیل‌های بعدی اثر می‌گذارد (بدون deploy و بدون ری‌استارت).</p>
+        <div class="row" style="margin-top:10px">
+          <select id="promptType" style="max-width:210px">
+            <option value="iris">تحلیل عنبیه</option>
+            <option value="skin">تحلیل پوست</option>
+            <option value="hair">تحلیل مو</option>
+            <option value="survey">پرسش‌نامه</option>
+          </select>
+          <span id="promptBadge" class="badge">—</span>
+          <span id="promptLen" class="badge">—</span>
+          <button id="promptReloadBtn" class="btn ghost small">🔄 بارگذاری</button>
+        </div>
+        <div id="promptTypes" class="row" style="margin-top:8px"></div>
+        <textarea id="promptText" spellcheck="false" style="width:100%;min-height:360px;margin-top:10px;padding:12px;border:1px solid var(--line);border-radius:14px;font-size:.8rem;line-height:2;direction:rtl;font-family:inherit;background:#fff" placeholder="متن پرامپت این بخش..."></textarea>
+        <div class="row" style="margin-top:10px">
+          <button id="promptSaveBtn" class="btn gold small">💾 ذخیره</button>
+          <button id="promptDefaultBtn" class="btn ghost small">↩ نمایش متن پیش‌فرض</button>
+          <button id="promptResetBtn" class="btn danger small">♻️ بازگشت به پیش‌فرض</button>
+        </div>
+        <div id="promptMsg" class="msg"></div>
+        <p class="note" style="margin-top:8px">نکته: اگر متن را دقیقاً برابر پیش‌فرض ذخیره کنی، به‌صورت خودکار به «پیش‌فرض» برمی‌گردد. تغییرات در رویدادها (events) ثبت می‌شود.</p>
       </div>
     </section>
   </section>
@@ -396,6 +424,65 @@ function renderSettings() {
     ' · نسخه: ' + (s.version || '—');
 }
 
+async function loadPrompts() {
+  const type = $('promptType').value;
+  const msg = $('promptMsg');
+  msg.className = 'msg'; msg.textContent = 'در حال بارگذاری...';
+  try {
+    const r = await api('/api/admin/prompts?type=' + encodeURIComponent(type));
+    if (!r || !r.ok) { msg.className = 'msg bad'; msg.textContent = (r && r.error) || 'خطا در خواندن پرامپت'; return; }
+    state.prompt = r;
+    $('promptText').value = r.text || '';
+    renderPromptBadges(r);
+    msg.textContent = '';
+  } catch (e) { msg.className = 'msg bad'; msg.textContent = 'خطا در ارتباط با سرور.'; }
+}
+
+function renderPromptBadges(r) {
+  $('promptBadge').className = 'badge ' + (r.customized ? 'gold' : 'ok');
+  $('promptBadge').textContent = r.customized ? 'ویرایش‌شده توسط مدیر' : 'پیش‌فرض کد';
+  $('promptLen').textContent = fmt(((r.text || '').length)) + ' کاراکتر';
+  const types = r.types || {};
+  $('promptTypes').innerHTML = Object.keys(types).map((t) => {
+    const x = types[t] || {};
+    return '<span class="badge ' + (x.customized ? 'gold' : 'ok') + '">' + esc(x.label || t) + ': ' + (x.customized ? 'ویرایش‌شده' : 'پیش‌فرض') + '</span>';
+  }).join(' ');
+}
+
+async function savePrompt() {
+  const type = $('promptType').value;
+  const text = $('promptText').value;
+  const msg = $('promptMsg');
+  if (text.trim().length < 200) { msg.className = 'msg bad'; msg.textContent = 'متن خیلی کوتاه است (حداقل ۲۰۰ کاراکتر).'; return; }
+  msg.className = 'msg'; msg.textContent = 'در حال ذخیره...';
+  try {
+    const r = await api('/api/admin/prompt/save', { type, text });
+    if (!r || !r.ok) { msg.className = 'msg bad'; msg.textContent = (r && r.error) || 'ذخیره نشد'; return; }
+    msg.className = 'msg ok';
+    msg.textContent = r.message || ('ذخیره شد — ' + fmt(r.length) + ' کاراکتر. از تحلیل بعدی اعمال می‌شود.');
+    toast('پرامپت ' + (TYPE[type] || type) + ' ذخیره شد.', 'ok');
+    await loadPrompts();
+  } catch (e) { msg.className = 'msg bad'; msg.textContent = 'خطا در ارتباط با سرور.'; }
+}
+
+function showDefaultPrompt() {
+  const r = state.prompt;
+  if (!r) return;
+  $('promptText').value = r.default_text || '';
+  const msg = $('promptMsg');
+  msg.className = 'msg'; msg.textContent = 'متن پیش‌فرض نمایش داده شد — هنوز ذخیره نشده است.';
+}
+
+async function resetPrompt() {
+  const type = $('promptType').value;
+  if (!confirm('پرامپت «' + (TYPE[type] || type) + '» به پیش‌فرض کد برگردد؟')) return;
+  try {
+    const r = await api('/api/admin/prompt/reset', { type });
+    if (r && r.ok) { toast('به پیش‌فرض برگشت.', 'ok'); await loadPrompts(); }
+    else toast((r && r.error) || 'خطا', 'bad');
+  } catch (e) { toast('خطا در ارتباط با سرور.', 'bad'); }
+}
+
 async function approveUser(email, status) {
   const r = await api('/api/admin/approve', { email, status });
   if (r && r.ok) { toast('وضعیت کاربر به‌روز شد.', 'ok'); await loadAll(); }
@@ -482,6 +569,7 @@ function switchTab(tab) {
   document.querySelectorAll('.pane').forEach((p) => p.classList.remove('active'));
   const pane = $('pane-' + tab);
   if (pane) pane.classList.add('active');
+  if (tab === 'prompts' && !state.prompt) loadPrompts();
 }
 
 document.getElementById('tabs').addEventListener('click', (e) => {
@@ -497,6 +585,11 @@ $('jobType').addEventListener('change', renderJobs);
 $('jobStatus').addEventListener('change', renderJobs);
 $('jobSearch').addEventListener('input', renderJobs);
 $('saveSettingsBtn').addEventListener('click', saveSettings);
+$('promptSaveBtn').addEventListener('click', savePrompt);
+$('promptResetBtn').addEventListener('click', resetPrompt);
+$('promptDefaultBtn').addEventListener('click', showDefaultPrompt);
+$('promptReloadBtn').addEventListener('click', loadPrompts);
+$('promptType').addEventListener('change', () => { state.prompt = null; loadPrompts(); });
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
 
 window.approveUser = approveUser;
