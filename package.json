@@ -9,7 +9,9 @@
     "build:data": "node scripts/build-knowledge.js",
     "dev:worker": "wrangler dev --config worker/wrangler.toml",
     "deploy:worker": "node scripts/deploy-worker.js",
+    "deploy:worker:api": "node scripts/deploy-worker-api.js",
     "deploy:pages": "node scripts/deploy-pages.js",
+    "deploy:pages:api": "node scripts/deploy-pages-api.js",
     "set:secret": "node scripts/set-secret.js",
     "admin": "node scripts/admin.js"
   },

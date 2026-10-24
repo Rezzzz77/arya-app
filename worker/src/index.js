@@ -3,7 +3,7 @@
 import { CATALOG, CATALOG_META } from './catalog.js';
 import ADMIN_HTML from './admin.html';
 
-const VERSION = '2026-10-23-v1';
+const VERSION = '2026-10-24-v2';
 const TOKEN_TTL_DAYS = 30;
 const SESSION_CLEAN_EVERY = 20; // approximate
 
@@ -412,7 +412,13 @@ async function callAI(env, system, user, imageUrl) {
         body = JSON.stringify({
           systemInstruction: { parts: [{ text: system }] },
           contents: [{ role: 'user', parts }],
-          generationConfig: { temperature: 0.35, maxOutputTokens: 10000 },
+          generationConfig: {
+            temperature: 0.35,
+            maxOutputTokens: 10000,
+            // flash-lite پیش‌فرض minimal است؛ صریح می‌نویسیم تا هزینه/تأخیر پایین بماند
+            // (سهمیهٔ این مدل با اپ نیوشانک مشترک است)
+            thinkingConfig: { thinkingLevel: 'minimal' },
+          },
         });
       } else {
         const userContent = imageUrl
@@ -432,7 +438,10 @@ async function callAI(env, system, user, imageUrl) {
       const raw = await r.text();
       if (!r.ok) {
         lastErr = new Error('AI HTTP ' + r.status + ' ' + raw.slice(0, 300));
-        if (r.status === 429 || r.status >= 500) { await sleep(1200 * (attempt + 1)); continue; }
+        // ۴۲۹ = سهمیهٔ مدل تمام شده. کلید جمینای این اپ با نیوشانک مشترک است،
+        // پس تلاش دوباره فقط سهمیهٔ آن اپ را می‌سوزاند → بلافاصله گزارش محلی.
+        if (r.status === 429) { lastErr.quota = true; throw lastErr; }
+        if (r.status >= 500) { await sleep(1200 * (attempt + 1)); continue; }
         throw lastErr;
       }
       let data;
@@ -441,7 +450,8 @@ async function callAI(env, system, user, imageUrl) {
       let text = '';
       if (cfg.provider === 'gemini') {
         text = (data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts || [])
-          .map((p) => p && p.text || '').join('').trim();
+          .filter((p) => p && p.text && !p.thought) // بخش‌های reasoning نباید داخل گزارش بیایند
+          .map((p) => p.text).join('').trim();
       } else {
         text = (data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content || '').trim();
       }
@@ -449,6 +459,7 @@ async function callAI(env, system, user, imageUrl) {
       return text;
     } catch (e) {
       lastErr = e;
+      if (e && e.quota) throw e;
       if (attempt === 0) await sleep(900);
     }
   }

@@ -92,6 +92,10 @@ label{display:block;font-size:.72rem;color:var(--tl);margin:8px 0 4px;font-weigh
 .upload svg{width:38px;height:38px;color:var(--pl);margin-bottom:6px}
 .upload .hint{font-size:.78rem;color:var(--tl)}
 .upload .subhint{font-size:.68rem;color:#a58c95;margin-top:3px}
+.pickrow{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:11px}
+.pickbtn{display:inline-flex;align-items:center;gap:6px;padding:9px 14px;border-radius:12px;border:1.5px solid #e9d3dc;background:#fff;color:var(--pd);font-weight:700;font-size:.78rem;cursor:pointer;transition:.18s}
+.pickbtn:hover{border-color:var(--pl);background:#fff6f9}
+.pickbtn:active{transform:scale(.98)}
 .preview{display:none;text-align:center;margin:8px 0}
 .preview.on{display:block}
 .preview img{max-width:100%;max-height:300px;border-radius:16px;border:1px solid var(--line);object-fit:contain;background:#fff}
@@ -295,12 +299,17 @@ footer{padding:8px 16px 18px;text-align:center;font-size:.64rem;color:#a58c95;li
         <h2>🧖‍♀️ تحلیل پوست</h2>
         <p>عکس واضح از صورت در نور طبیعی. بهتر است آرایش پاک شده و فلاش خاموش باشد. تحلیل پیکسلی روی گوشی + ارسال نسخه فشرده برای ویژن AI.</p>
       </div>
-      <div class="upload" id="skinUp" onclick="$('skinFile').click()">
+      <div class="upload" id="skinUp" onclick="$('skinFileGal').click()">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 7h3l2-2h6l2 2h3v13H4z"/><circle cx="12" cy="13" r="4"/></svg>
-        <div class="hint">انتخاب عکس از گالری یا دوربین</div>
+        <div class="hint">عکس پوست: از گالری انتخاب کن یا با دوربین بگیر</div>
         <div class="subhint">JPG / PNG — حداکثر ۸۰۰px برای تحلیل کافی است</div>
+        <div class="pickrow" onclick="event.stopPropagation()">
+          <button type="button" class="pickbtn" onclick="$('skinFileGal').click()">🖼 از گالری</button>
+          <button type="button" class="pickbtn" onclick="$('skinFileCam').click()">📷 با دوربین</button>
+        </div>
       </div>
-      <input type="file" id="skinFile" accept="image/*" capture="user" style="display:none" onchange="handleImage('skin')">
+      <input type="file" id="skinFileGal" accept="image/*" style="display:none">
+      <input type="file" id="skinFileCam" accept="image/*" capture="user" style="display:none">
       <div class="preview" id="skinPreview"><img id="skinImg" alt="پیش‌نمایش عکس پوست"></div>
       <div id="skinLocal"></div>
       <button class="btn" id="skinSend" hidden onclick="sendAnalysis('skin')">دریافت گزارش هوشمند</button>
@@ -318,12 +327,17 @@ footer{padding:8px 16px 18px;text-align:center;font-size:.64rem;color:#a58c95;li
         <button class="tab active" onclick="setEye('right', this)">چشم راست</button>
         <button class="tab" onclick="setEye('left', this)">چشم چپ</button>
       </div>
-      <div class="upload" id="irisUp" onclick="$('irisFile').click()">
+      <div class="upload" id="irisUp" onclick="$('irisFileGal').click()">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg>
-        <div class="hint">انتخاب عکس چشم از گالری یا دوربین</div>
+        <div class="hint">عکس چشم: از گالری انتخاب کن یا با دوربین بگیر</div>
         <div class="subhint">عنبیه باید واضح و بیشتر کادر را پر کند</div>
+        <div class="pickrow" onclick="event.stopPropagation()">
+          <button type="button" class="pickbtn" onclick="$('irisFileGal').click()">🖼 از گالری</button>
+          <button type="button" class="pickbtn" onclick="$('irisFileCam').click()">📷 با دوربین</button>
+        </div>
       </div>
-      <input type="file" id="irisFile" accept="image/*" capture="user" style="display:none" onchange="handleIrisImage()">
+      <input type="file" id="irisFileGal" accept="image/*" style="display:none">
+      <input type="file" id="irisFileCam" accept="image/*" capture="user" style="display:none">
       <div class="preview" id="irisPreview"><img id="irisImg" alt="پیش‌نمایش عکس عنبیه"></div>
       <div id="irisLocal"></div>
       <button class="btn" id="irisSend" hidden onclick="sendIrisAnalysis()">دریافت گزارش و روتین عنبیه</button>
@@ -337,12 +351,17 @@ footer{padding:8px 16px 18px;text-align:center;font-size:.64rem;color:#a58c95;li
         <h2>💇‍♀️ تحلیل مو و کف سر</h2>
         <p>عکس واضح از مو یا کف سر. اگر مشکل اصلی شوره یا ریزش است، کف سر را در کادر بگیرید. نسخه فشرده برای ویژن AI ارسال می‌شود.</p>
       </div>
-      <div class="upload" id="hairUp" onclick="$('hairFile').click()">
+      <div class="upload" id="hairUp" onclick="$('hairFileGal').click()">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 7h3l2-2h6l2 2h3v13H4z"/><path d="M8 12c2-3 6-3 8 0M8 16c2-2 6-2 8 0"/></svg>
-        <div class="hint">انتخاب عکس از گالری یا دوربین</div>
+        <div class="hint">عکس مو: از گالری انتخاب کن یا با دوربین بگیر</div>
         <div class="subhint">برای ریزش/شوره، کف سر را نزدیک‌تر بگیرید</div>
+        <div class="pickrow" onclick="event.stopPropagation()">
+          <button type="button" class="pickbtn" onclick="$('hairFileGal').click()">🖼 از گالری</button>
+          <button type="button" class="pickbtn" onclick="$('hairFileCam').click()">📷 با دوربین</button>
+        </div>
       </div>
-      <input type="file" id="hairFile" accept="image/*" capture="environment" style="display:none" onchange="handleImage('hair')">
+      <input type="file" id="hairFileGal" accept="image/*" style="display:none">
+      <input type="file" id="hairFileCam" accept="image/*" capture="environment" style="display:none">
       <div class="preview" id="hairPreview"><img id="hairImg" alt="پیش‌نمایش عکس مو"></div>
       <div id="hairLocal"></div>
       <button class="btn" id="hairSend" hidden onclick="sendAnalysis('hair')">دریافت گزارش هوشمند</button>
@@ -734,11 +753,16 @@ function renderHome() {
 }
 
 /* ================= IMAGE ANALYSIS ================= */
-function handleImage(type) {
-  const input = $(type + 'File');
+function pickInput(type, which) {
+  return $(type + 'File' + (which === 'cam' ? 'Cam' : 'Gal')) || $(type + 'File');
+}
+function handleImage(type, which) {
+  const input = pickInput(type, which);
+  if (!input) return;
   const file = input.files && input.files[0];
   if (!file) return;
-  if (!file.type.startsWith('image/')) { toast('فایل انتخاب‌شده عکس نیست.', 'bad'); return; }
+  if (!file.type.startsWith('image/')) { toast('فایل انتخاب‌شده عکس نیست.', 'bad'); input.value = ''; return; }
+  input.value = '';
   const img = new Image();
   const url = URL.createObjectURL(file);
   img.onload = () => {
@@ -770,11 +794,13 @@ function setEye(side, el) {
   if (el) el.classList.add('active');
 }
 
-function handleIrisImage() {
-  const input = $('irisFile');
+function handleIrisImage(which) {
+  const input = pickInput('iris', which);
+  if (!input) return;
   const file = input.files && input.files[0];
   if (!file) return;
-  if (!file.type.startsWith('image/')) { toast('فایل انتخاب‌شده عکس نیست.', 'bad'); return; }
+  if (!file.type.startsWith('image/')) { toast('فایل انتخاب‌شده عکس نیست.', 'bad'); input.value = ''; return; }
+  input.value = '';
   const img = new Image();
   const url = URL.createObjectURL(file);
   img.onload = () => {
@@ -1381,7 +1407,7 @@ function resetAnalysis(type) {
   $(type + 'Local').innerHTML = '';
   $(type + 'Send').hidden = true;
   $(type + 'Res').innerHTML = '';
-  $(type + 'File').value = '';
+  ["Gal", "Cam"].forEach((k) => { const el = $(type + 'File' + k); if (el) el.value = ''; });
 }
 
 /* ================= PROFILE ================= */
@@ -1822,10 +1848,19 @@ async function copyEmail(email) {
 
 /* ================= INIT ================= */
 function bindStatic() {
-  $('skinFile').addEventListener('change', () => handleImage('skin'));
-  $('hairFile').addEventListener('change', () => handleImage('hair'));
-  $('skinUp').addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') $('skinFile').click(); });
-  $('hairUp').addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') $('hairFile').click(); });
+  // گالری و دوربین جدا هستند؛ هر input فقط یک listener دارد (قبلاً onchange + listener = پردازش دوباره)
+  [["skin", "skin"], ["hair", "hair"]].forEach(([type]) => {
+    [["Gal", "gal"], ["Cam", "cam"]].forEach(([suffix, which]) => {
+      const el = $(type + 'File' + suffix);
+      if (el) el.addEventListener('change', () => handleImage(type, which));
+    });
+  });
+  ["Gal", "Cam"].forEach((suffix) => {
+    const el = $('irisFile' + suffix);
+    if (el) el.addEventListener('change', () => handleIrisImage(suffix === 'Cam' ? 'cam' : 'gal'));
+  });
+  $('skinUp').addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') $('skinFileGal').click(); });
+  $('hairUp').addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') $('hairFileGal').click(); });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
 }
 
