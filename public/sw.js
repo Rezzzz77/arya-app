@@ -1,4 +1,4 @@
-const CACHE = 'arya-beauty-v3';
+const CACHE = 'arya-beauty-v4';
 const ASSETS = ['./', './index.html', './manifest.webmanifest', './data/products.json', './icon-192.svg', './icon-512.svg'];
 
 self.addEventListener('install', (event) => {
