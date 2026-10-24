@@ -11,11 +11,13 @@ globs = ["**/*.html"]
 fallthrough = true
 
 [vars]
-AI_PROVIDER = "deepseek"
-AI_BASE_URL = "https://api.deepseek.com"
-AI_MODEL = "deepseek-flash"
+# کلید جمینای این اپ همان کلید اپ نیوشانک است → سهمیهٔ مدل مشترک است.
+# 4xx/429 مدیریت می‌شود و در صورت اتمام سهمیه به گزارش محلی برمی‌گردد.
+AI_PROVIDER = "gemini"
+AI_BASE_URL = "https://generativelanguage.googleapis.com/v1beta"
+AI_MODEL = "gemini-3.5-flash-lite"
 DAILY_LIMIT = "10"
-APP_NAME = "مشاور زیبایی آریا"
+APP_NAME = "مشاور زیبایی سلاطین یار"
 
 [[d1_databases]]
 binding = "DB"
