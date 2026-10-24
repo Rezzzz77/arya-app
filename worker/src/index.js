@@ -2,8 +2,9 @@
 // D1 for users/sessions/jobs, KV for rate limiting, Queues for AI jobs.
 import { CATALOG, CATALOG_META } from './catalog.js';
 import ADMIN_HTML from './admin.html';
+import { IRIS_SYSTEM_PROMPT } from './iris-prompt.js';
 
-const VERSION = '2026-10-24-v2';
+const VERSION = '2026-10-24-v3';
 const TOKEN_TTL_DAYS = 30;
 const SESSION_CLEAN_EVERY = 20; // approximate
 
@@ -669,10 +670,12 @@ async function processJob(env, jobId) {
   const key = aiKey(env);
   if (key) {
     try {
-      text = await callAI(env, SYSTEM_PROMPT, userPrompt(input, !!imageUrl), imageUrl);
+      // عنبیه پرامپت اختصاصی خودش را دارد؛ پوست/مو/پرسش‌نامه از SYSTEM_PROMPT استفاده می‌کنند
+      const sysPrompt = input.type === 'iris' ? IRIS_SYSTEM_PROMPT : SYSTEM_PROMPT;
+      text = await callAI(env, sysPrompt, userPrompt(input, !!imageUrl), imageUrl);
       engine = aiConfig(env).provider + ':' + aiConfig(env).model;
       if (!isPersianEnough(text)) {
-        text = await callAI(env, SYSTEM_PROMPT + '\n\n⚠️ پاسخ قبلی فارسی نبود. این بار فقط فارسی بنویس.', userPrompt(input, !!imageUrl), imageUrl);
+        text = await callAI(env, sysPrompt + '\n\n⚠️ پاسخ قبلی فارسی نبود. این بار فقط فارسی بنویس.', userPrompt(input, !!imageUrl), imageUrl);
       }
     } catch (e) {
       text = '';
