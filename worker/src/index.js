@@ -4,7 +4,7 @@ import { CATALOG, CATALOG_META } from './catalog.js';
 import ADMIN_HTML from './admin.html';
 import { IRIS_SYSTEM_PROMPT } from './iris-prompt.js';
 
-const VERSION = '2026-10-24-v4';
+const VERSION = '2026-10-24-v5';
 const TOKEN_TTL_DAYS = 30;
 const SESSION_CLEAN_EVERY = 20; // approximate
 

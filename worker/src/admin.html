@@ -368,9 +368,14 @@ function renderUsers() {
   if (!list.length) { el.innerHTML = '<div class="card empty">کاربری با این فیلتر پیدا نشد.</div>'; return; }
   el.innerHTML = list.map((u) => {
     const cls = STC[u.status] || '';
-    const act = u.status === 'approved'
-      ? '<button class="danger" onclick="approveUser(\'' + escA(u.email) + '\',\'blocked\')">مسدود</button>'
-      : '<button class="ok" onclick="approveUser(\'' + escA(u.email) + '\',\'approved\')">تأیید</button>';
+    // ادمین را نمی‌توان از پنل مسدود کرد؛ در غیر این صورت خودش را از پنل بیرون می‌قفل می‌کند
+    const act = u.role === 'admin'
+      ? (u.status === 'approved'
+        ? '<span class="badge ok">🛡 محافظت‌شده</span>'
+        : '<button class="ok" onclick="approveUser(\'' + escA(u.email) + '\',\'approved\')">تأیید</button>')
+      : (u.status === 'approved'
+        ? '<button class="danger" onclick="approveUser(\'' + escA(u.email) + '\',\'blocked\')">مسدود</button>'
+        : '<button class="ok" onclick="approveUser(\'' + escA(u.email) + '\',\'approved\')">تأیید</button>');
     return '<div class="item"><div class="top"><b>' + esc(u.email) + '</b><span class="badge ' + cls + '">' + esc(ST[u.status] || u.status) + '</span></div>' +
       '<div class="meta">' + esc(u.role === 'admin' ? 'مدیر' : 'کاربر') + ' · سهمیه: ' + esc(u.daily_limit || 'پیش‌فرض') + ' · عضویت: ' + esc(dateF(u.created_at)) + '</div>' +
       '<div class="actions">' + act +
@@ -484,6 +489,9 @@ async function resetPrompt() {
 }
 
 async function approveUser(email, status) {
+  const u = (state.users || []).find((x) => x.email === email);
+  if (status === 'blocked' && u && u.role === 'admin') { toast('حساب مدیر از پنل مسدود نمی‌شود.', 'bad'); return; }
+  if (status === 'blocked' && u && u.email === (state.user && state.user.email)) { toast('نمی‌توانید حساب خودتان را مسدود کنید.', 'bad'); return; }
   const r = await api('/api/admin/approve', { email, status });
   if (r && r.ok) { toast('وضعیت کاربر به‌روز شد.', 'ok'); await loadAll(); }
   else toast((r && r.error) || 'خطا', 'bad');
